@@ -2,7 +2,7 @@ var width = window.innerWidth,  //scale + center map
     height = window.innerHeight;
 var projection = d3.geoAlbersUsa()
     .scale(2000)    //resize so it can focus in on new england
-    .translate([width/2, height/2])
+    .translate([width/500, height/2])
     .precision(.1);
 
 var svgStates = d3.select("svg #states");
