@@ -1,8 +1,7 @@
 var width = window.innerWidth,  //scale + center map
     height = window.innerHeight;
-var projection = d3.geoAlbersUsa()
-    .scale(2000)    //resize so it can focus in on new england
-    .translate([width/500, height/2])
+var projection = d3.geoAlbersUsa()    //resize so it can focus in on new england
+    .translate([width/500, height/1.73])
     .precision(.1);
 
 var svgStates = d3.select("svg #states");
@@ -23,7 +22,7 @@ d3.json("../data/states.json", function(error, topologies) {
     svgStates.selectAll("path")
         .data(newEnglandData)
         .enter()
-      .append("path")
+        .append("path")
         .attr("d", path);
   });
 

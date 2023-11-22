@@ -36,7 +36,7 @@
   
     <h1>Team Undergrad8: New England Police Expenditure, COSI 116A F23</h1>
     
-    <p><strong>Eliora</strong>, <strong>Harry</strong>, <strong>Grant</strong>, <strong>Cole</strong></p>
+    <p><strong>Eliora Kruman</strong>, <strong>Harry Cheng</strong>, <strong>Grant Gu</strong>, <strong>Cole Simmons</strong></p>
     
     <p>Project-long Course Project as part of COSI 116A: Information Visualization</a>, taught by <a href="https://cs.brandeis.edu/~dylan/">Prof. Dylan Cashman</a>, <a href="https://cs.brandeis.edu/">Brandeis University</a>.</p>
     
@@ -56,11 +56,20 @@
   
   <!-- Your visualization here -->
   <div class="vis-holder">
-    <div class="map-holder" id="map">
-      <svg class="vis-1">
+    <div class="map-holder" id="map" style = "text-align: center;">
+      <svg class="vis-1" height = 250 width = 153 viewbox = "200 200 400 350">
+
         <g id="states"></g>
       </svg>
-      <h2>Map of New England</h2>
+    </div>
+    <br>
+    <h2>Map of New England</h2>
+    <br>
+    <div class="treemap-holder" id="treemap">
+      <svg class="vis-2">
+        <g id="tree"></g>
+      </svg>
+      <h2>Treemap</h2>
     </div>
 
     <div class="chart-holder">
@@ -136,6 +145,7 @@
   <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
   <script src="lib/d3.v4/d3.v4.js"></script>
   <script src="js/visualization.js"></script>
+  <script src="js/treemap.js"></script>
   <script src="js/map.js"></script>
   <script src="js/char.js"></script>
 </body>
