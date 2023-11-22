@@ -27,20 +27,38 @@ h1, h2, h3 {
   height: 100%;
   margin: 0 auto;
   max-width: 650px;
+  display : flex;
+  flex-direction: column;
 }
 
 .map-holder{
-  align-items: center;
   width: 100%;
   height: 100%;
+  max-width: 650px;
   margin: 0 auto;
-  display: block;
+  display : flex;
+  flex-direction: column
 }
 
 .vis-1 {
 width: 100%;
-height: 100%;
-margin: 0 auto;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.treemap-holder{
+	width: 100%;
+  height: 100%;
+  max-width: 650px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.vis-2 {
+width: 100%;
+	height: 100%;
+	margin: 40px auto;
 }
 
 .content-column.write-up {
