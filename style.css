@@ -23,12 +23,23 @@ h1, h2, h3 {
 
 /* But your visualization should be full-width and full-height */
 .vis-holder {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   margin: 40px auto;
   max-width: 650px;
 }
+.chart-holder{
+	width: 100%;
+	height: 100%;
+	max-width: 650px;
+	margin: 40px auto;
+}
+.chart-holder .chart-1{
+	width: 100%;
+	height: 100%;
+	margin: 40px auto;
 
+}
 .map-holder{
 	width: 100%;
   height: 100%;
