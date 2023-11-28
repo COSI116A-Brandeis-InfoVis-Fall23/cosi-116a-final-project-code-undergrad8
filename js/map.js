@@ -23,6 +23,8 @@ d3.json("../data/states.json", function(error, topologies) {
         .data(newEnglandData)
         .enter()
         .append("path")
-        .attr("d", path);
+        .attr("d", path)
+        .append("svg:title")
+        .text(function(d) { return d.properties.STATENAM; });   // for some reason it thinks maine is massachusetts, something with the data
   });
 
