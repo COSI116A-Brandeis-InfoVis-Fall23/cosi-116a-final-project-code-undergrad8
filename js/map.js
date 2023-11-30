@@ -5,7 +5,7 @@ var projection = d3.geoAlbersUsa()
     .translate([width/500, height/2])
     .precision(.1);
 
-var svgStates = d3.select("svg #states");   //select svg
+var svgStates = d3.select("svgsvg #states #s");   //select svg
 
 var path = d3.geoPath() //set path
     .projection(projection);
@@ -67,4 +67,3 @@ d3.json("../data/states.json", function(error, topologies) {
   
     });
 
-  
