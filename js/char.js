@@ -1,50 +1,67 @@
-// Sample data - replace this with your actual data
-const dataset = [ 5, 10, 15, 20, 25 ];
 
-// Set dimensions for your chart
-const svgWidth = 500, svgHeight = 300, barPadding = 5;
-const barWidth = (svgWidth / dataset.length);
+fetch('data/21NewEngland.json')
+    .then(response => response.json())
+    .then(data => {
+        // Now 'data' contains your JSON data
+        const processedData=processData(data,'Population','Police Protection');
+        console.log(processedData);
+        drawScatterPlot(processedData); // Call a function to draw the scatter plot
+    })
+    .catch(error => console.error('Error loading JSON data:', error));
+function drawScatterPlot(data) {
 
-// Select the SVG element and set its width and height
-const svg = d3.select('.chart-1')
-    .attr('width', svgWidth)
-    .attr('height', svgHeight);
+    // Set the dimensions and margins of the graph
+    const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+          width = 460 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
 
-// Bind data to rectangles (bars)
-const barChart = svg.selectAll('rect')
-    .data(dataset)
-    .enter()
-    .append('rect')
-    .attr('y', d => svgHeight - d)
-    .attr('height', d => d)
-    .attr('width', barWidth - barPadding)
-    .attr('transform', (d, i) => {
-        const translate = [barWidth * i, 0]; 
-        return `translate(${translate})`;
+    // Append the svg object to your page
+    const svg = d3.select("#scatterplot")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Add X axis
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.x)])
+        .range([0, width]);
+    const xAxis = d3.axisBottom(x)
+      .ticks(7); // Adjust the number of ticks as needed
+    
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", `translate(0, ${height})`)
+      .call(xAxis);
+
+    // Add Y axis
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.y)])
+        .range([height, 0]);
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    // Add dots
+    svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
+        .attr("r", 2.5)
+        .style("fill", "#FF0000");
+
+
+
+
+}
+
+function processData(data, xKey, yKey) {
+    return data.map(item => {
+        return {
+            x: item[xKey],
+            y: parseInt(item[yKey].replace(/,/g, ''), 10) // Remove commas and convert to integer
+        };
     });
-
-// Optional: add labels to the bars
-const text = svg.selectAll('text')
-    .data(dataset)
-    .enter()
-    .append('text')
-    .text(d => d)
-    .attr('y', (d, i) => svgHeight - d - 2)
-    .attr('x', (d, i) => barWidth * i)
-    .attr('fill', '#fff');
-
-
-// Add X-Axis Label
-svg.append("text")             
-    .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.bottom - 10) + ")")
-    .style("text-anchor", "middle")
-    .text("Policing");
-
-// Add Y-Axis Label
-svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Population");
+}
