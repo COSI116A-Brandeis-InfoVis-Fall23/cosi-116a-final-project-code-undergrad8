@@ -35,14 +35,24 @@ d3.json("../data/states.json", function(error, topologies) {
                 return Object.assign({}, newEnglandState, censusState); //assign properties of censusState to newEnglandState
             });
 
+            var Per_Capitas = mergeData.map(function(d) {
+                return d.Police_per_capita;
+            });
+
+            var colorScale = d3.scaleSequential(d3.interpolateBlues)
+                .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+
             console.log(mergeData)  //debugging
         
             var paths = svgStates.selectAll("path") //create new paths SVG selection 
                 .data(mergeData)
                 .enter()
                 .append("path")
-                .attr("d", path);
-            paths.merge(svgStates.selectAll("path"))    //use d3 merge function to combine original path with new paths. documentation: https://observablehq.com/@d3/d3-merge
+                .attr("d", path)
+                .merge(svgStates.selectAll("path"))
+                .style("fill", function(d) {
+                    return colorScale(d.Police_per_capita);
+                })
                 .append("svg:title")
                 .text(function(d) { //tooltip
                     console.log(d.Population)   //debugging
