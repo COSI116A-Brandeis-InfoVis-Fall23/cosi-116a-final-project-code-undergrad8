@@ -67,6 +67,4 @@ d3.json("../data/states.json", function(error, topologies) {
   
     });
 
-=========
->>>>>>>>> Temporary merge branch 2
-  
+ 
