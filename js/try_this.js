@@ -21,7 +21,7 @@ function map(){
             .projection(projection);
 
         d3.json("../data/states.json", function(error, topologies) {
-            var state = topojson.feature(topologies[12], topologies[12].objects.stdin);
+            var state = topojson.feature(topologies[12], topologies[12].objects.stdin); //use topologies[12] so that the geodata is from 1910, not 1790 lol
             console.log(state.features) //debugging
             var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
             var newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
@@ -48,7 +48,7 @@ function map(){
                         return d.Police_per_capita;
                     });
         
-                    var colorScale = d3.scaleSequential(d3.interpolateBlues)
+                    var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
                         .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
         
                     console.log(mergeData)  //debugging
@@ -60,9 +60,9 @@ function map(){
                         .attr("d", path)
                         .merge(map.selectAll("path"))
                         .style("fill", function(d) {
-                            return colorScale(d.Police_per_capita);
+                            return colorScale(d.Police_per_capita); //color them!
                         })
-                        .on("mouseover", function(d){
+                        .on("mouseover", function(d){   //testing out mouse events for brushing and linking
                             console.log("mouseover")
                         })
                         .on("mouseout", function(d){
@@ -83,39 +83,39 @@ function map(){
 
                     })
 
+                    //appending legend: following tutorial from https://www.visualcinnamon.com/2016/05/smooth-color-legend-d3-svg-gradient/
                     var defs = map.append("defs");
+
+                    var legendScale = d3.scaleLinear()  //create a linear scale with colors chosen to match map colors using color brewer
+                        .range(["#eff3ff", "#2171b5"]);
 
                     var linearGradient = defs.append("linearGradient")
                         .attr("id", "linear-gradient")
                         .attr("x1", "0%")
                         .attr("y1", "0%")
-                        .attr("x2", "100%")
+                        .attr("x2", "100%") //we want this scale to be moving from left to right, so x2 is the only one with 100% and the others are 0
                         .attr("y2", "0%");
 
-                    // var legendScale = d3.scale.linear()
-                    //     .range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c",
-                    //             "#f9d057","#f29e2e","#e76818","#d7191c"]);
+                    // linearGradient.append("stop")    //this was what i used for testing purposes, to get an idea of what a fixed start/stop looks like
+                    //     .attr("offset", "0%")
+                    //     .attr("stop-color", "white");
 
-                    linearGradient.append("stop")
-                        .attr("offset", "0%")
-                        .attr("stop-color", "white");
+                    // linearGradient.append("stop")
+                    //     .attr("offset", "100%")
+                    //     .attr("stop-color", "blue");
 
-                    linearGradient.append("stop")
-                        .attr("offset", "100%")
-                        .attr("stop-color", "blue");
+                    linearGradient 
+                        .selectAll("stop")
+                        .data(legendScale.range())
+                        .enter().append("stop")
+                        .attr("offset", function (d, i) {
+                            return i / (legendScale.range().length - 1);    //this increments through the linear scale
+                        })
+                        .attr("stop-color", function (d) {
+                            return d;
+                        });
 
-                    // linearGradient
-                    //     .selectAll("stop")
-                    //     .data(colorScale.range())
-                    //     .enter().append("stop")
-                    //     .attr("offset", function (d, i) {
-                    //         return i / (legendScale.range().length - 1);
-                    //     })
-                    //     .attr("stop-color", function (d) {
-                    //         return d;
-                    //     });
-
-                    map.append("rect")
+                    map.append("rect")  //this appends it to the map. i want to update the positioning of this next
                     .attr("width", 300)
                     .attr("height", 20)
                     .style("fill", "url(#linear-gradient)")
@@ -170,7 +170,7 @@ function map(){
 
     }
 
-    chart.selectionDispatcher = function (_) {
+    chart.selectionDispatcher = function (_) {  //brushing and linking selection dispatchers
         if (!arguments.length) return dispatcher;
         dispatcher = _;
         return chart;
