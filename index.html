@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Metadata -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- Title -->
+  <title>Team Undergrad8: 2021 New England Police Expenditure, COSI 116A F23</title>
+  
+  <!-- CSS Styling -->
+  <link rel="stylesheet" href="style.css">
+ 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="manifest" href="favicons/site.webmanifest">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="favicons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<!-- Main page content -->
+<body>
+
+  <!-- Update this with your GitHub repo URL -->
+  <span id="forkongithub"><a href="https://github.com/COSI116A-Brandeis-InfoVis-Fall23/cosi-116a-final-project-code-undergrad8">Fork me on GitHub</a></span>
+
+  <!-- Your writeup goes here -->
+  <div class = "content-column">
+  
+    <h1>Team Undergrad8: 2021 New England Police Expenditure, COSI 116A F23</h1>
+    
+    <p><strong>Eliora Kruman</strong>, <strong>Harry Cheng</strong>, <strong>Grant Gu</strong>, <strong>Cole Simmons</strong></p>
+    
+    <p>Project-long Course Project as part of COSI 116A: Information Visualization</a>, taught by <a href="https://cs.brandeis.edu/~dylan/">Prof. Dylan Cashman</a>, <a href="https://cs.brandeis.edu/">Brandeis University</a>.</p>
+    
+    
+    <h1>Motivation</h1>
+    
+    <p><em>Summary of user needs and motivating questions.</em></p>
+    
+    <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p>
+
+    
+    <h1>Visualization</h1>
+    
+    <p><em>Include the interactive visualization as part of this page. Static example follows.</em></p>
+    
+  </div>
+  
+  <!-- Your visualization here -->
+  <div class="vis-holder">
+    <div class="map-holder" id="map">
+      <h2>Map of New England</h2>
+      <svg class="vis-1"  width=700px height = 700px  viewbox = "0 0 1200 500">
+
+        <g id="states" ></g>
+      </svg>
+    </div>
+    <br>
+  
+    <br>
+    <div class="treemap-holder" id="treemap">
+      <h2>Treemap</h2>
+      <svg class="vis-2">
+        <g id="tree"></g>
+      </svg>
+    </div>
+    <br>
+    <h2>Scatterplots of New England</h2>
+    <div class="chart-holder" id="sp">
+      <svg class="chart-1" id="scatterplot-1"></svg>
+      <svg class="chart-2" id="scatterplot-2"></svg>
+      <svg class="chart-3" id="scatterplot-3"></svg>
+      <svg class="chart-4" id="scatterplot-4"></svg>
+    </div>
+    
+  </div>
+  
+  <!-- Your writeup goes here -->
+  <div class = "content-column">
+    <div class = "write-up">
+    <div class = "empty-space">
+      <h1>hi</h1>
+      <h1>hi</h1>
+      <h1>hi</h1>
+    </div>
+    <h1>Demo Video</h1>
+    
+    <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
+    
+    <video controls width="100%">
+      <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
+      <p>Your browser doesn't support HTML5 video. Here is
+       a <a href="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4">link to the video</a> instead.</p>
+    </video>
+
+    <h1>Visualization explanation</h1>
+    
+    <p><em>Final visualization screenshots (PNG images), design justifications, UI walk-through, and linked presentation slides.</em></p>
+
+    <h1>Data Analysis</h1>
+    <p><em>Summary of data, data types, and data preprocessing.</em></p>
+
+    <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
+
+    <h1>Task Analysis</h1>
+
+    <p><em>Summary of task table.</em></p>
+
+    <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
+
+    <h1>Design Process</h1>
+    
+    <p><em>Sketches and design choices to justify final visualization.</em></p>
+
+    <p><em>Expectation: Evidence of iterative improvement.
+    Logical discussion of design choices grounded in theory from course.
+    Discusses feedback from usability testing.</em></p>
+
+
+    <h1>Conclusion</h1>
+
+    <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
+    
+    <p><em>Expectation: Meaningfully wraps up project and has good future directions.</em></p>
+
+    
+    <h1>Acknowledgments</h1>
+
+    <p><em>List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.</em></p>
+    
+    <ul>
+      <li><a href="https://d3js.org/">D3: Data-Driven Documents</a> by Mike Bostock.</li>
+      <li><a href="https://codepo8.github.io/css-fork-on-github-ribbon/#">Pure CSS responsive "Fork me on GitHub" ribbon</a> by Chris Heilmann.</li>
+    </ul>
+    
+  </div>
+  </div>
+  
+  <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
+  <script src="lib/d3.v4/d3.v4.js"></script>
+  <script src="js/treemap.js"></script>
+  <script src="js/try_this.js"></script>
+  <!-- <script src="js/map.js"></script> -->
+  <script src="js/char.js"></script>
+  <script src="js/visualization.js"></script>
+</body>
+</html>
