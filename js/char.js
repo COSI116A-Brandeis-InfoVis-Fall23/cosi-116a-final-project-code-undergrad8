@@ -1,21 +1,23 @@
-
-fetch('../data/21NewEngland.json')
-    .then(response => response.json())
-    .then(data => {
+function scatterplot(data){
+    
         // Now 'data' contains your JSON data
-        console.log(data);
-        const processedData=processData(data,'Population','Police Protection');
-        drawScatterPlot(processedData,'scatterplot-1','Population','Police Protection'); // Call a function to draw the scatter plot
-        const processedData_second=processData(data,'Average income','Police Protection');
-        drawScatterPlot(processedData_second,'scatterplot-2','Average income','Police Protection');
-        const processedData_third=processData(data,'State Revenue','Police Protection');
+        
+        const processedData=processData(data,'Population','State_police');
+        drawScatterPlot(processedData,'scatterplot-1','Population','State Police Protection'); // Call a function to draw the scatter plot
+        const processedData_second=processData(data,'Average_income','Police_per_capita');
+        drawScatterPlot(processedData_second,'scatterplot-2','Average income','Police per capita');
+        const processedData_third=processData(data,'State_revenue','State_police');
         console.log(processedData_third);
-        drawScatterPlot(processedData_third,'scatterplot-3','State Revenue','Police Protection');
-        const processedData_forth=processData(data,'Local Revenue','Police Protection');
+        drawScatterPlot(processedData_third,'scatterplot-3','State Revenue','State Police Protection');
+        const processedData_forth=processData(data,'Local_revenue','Local_police');
         console.log(processedData_forth);
-        drawScatterPlot(processedData_forth,'scatterplot-4','Local Revenue','Police Protection');
-    })
-    .catch(error => console.error('Error loading JSON data:', error));
+        drawScatterPlot(processedData_forth,'scatterplot-4','Local Revenue','Local Police Protection');
+    }
+  
+
+
+
+
 function drawScatterPlot(data,svgId,xLabel,yLabel) {
 
     // Set the dimensions and margins of the graph
@@ -90,7 +92,7 @@ function processData(data, xKey, yKey) {
     return data.map(item => {
         return {
             x: item[xKey],
-            y: parseInt(item[yKey].replace(/,/g, ''), 10) // Remove commas and convert to integer
+            y: item[yKey] 
         };
     });
 }
