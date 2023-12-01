@@ -12,7 +12,7 @@ var path = d3.geoPath() //set path
 
 d3.json("../data/states.json", function(error, topologies) {
 
-    var state = topojson.feature(topologies[0], topologies[0].objects.stdin);
+    var state = topojson.feature(topologies[12], topologies[12].objects.stdin);
     console.log(state.features) //debugging
     var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
     var newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
