@@ -83,6 +83,42 @@ function map(){
 
                     })
 
+                    var defs = map.append("defs");
+
+                    var linearGradient = defs.append("linearGradient")
+                        .attr("id", "linear-gradient")
+                        .attr("x1", "0%")
+                        .attr("y1", "0%")
+                        .attr("x2", "100%")
+                        .attr("y2", "0%");
+
+                    // var legendScale = d3.scale.linear()
+                    //     .range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c",
+                    //             "#f9d057","#f29e2e","#e76818","#d7191c"]);
+
+                    linearGradient.append("stop")
+                        .attr("offset", "0%")
+                        .attr("stop-color", "white");
+
+                    linearGradient.append("stop")
+                        .attr("offset", "100%")
+                        .attr("stop-color", "blue");
+
+                    // linearGradient
+                    //     .selectAll("stop")
+                    //     .data(colorScale.range())
+                    //     .enter().append("stop")
+                    //     .attr("offset", function (d, i) {
+                    //         return i / (legendScale.range().length - 1);
+                    //     })
+                    //     .attr("stop-color", function (d) {
+                    //         return d;
+                    //     });
+
+                    map.append("rect")
+                    .attr("width", 300)
+                    .attr("height", 20)
+                    .style("fill", "url(#linear-gradient)")
 
         })
 
