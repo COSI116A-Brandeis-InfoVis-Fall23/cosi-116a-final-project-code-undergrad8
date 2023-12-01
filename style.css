@@ -25,33 +25,19 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 1200px;
   display : flex;
   flex-direction: column;
 }
 .chart-holder{
-	width: 100%;
-	max-width: 600px;
-	margin: 40px auto;
 	display:flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
-.chart-holder .chart-1{
-  width: 460px;
-  height: 400px;
-
-}
-.chart-holder .chart-2{
-	width: 460px;
-	height: 400px;
-}
-.chart-holder .chart-3{
-	width: 460px;
-	height: 400px;
-}
-.chart-holder .chart-4{
-	width: 460px;
-	height: 400px;
+.chart-holder svg{
+   width: 50%;
+   height:auto;
+   min-height: 300px;
 }
 
 .map-holder{
