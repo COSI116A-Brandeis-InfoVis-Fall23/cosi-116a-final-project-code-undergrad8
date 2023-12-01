@@ -4,7 +4,7 @@
 
   console.log("Hello, world!");
 
-  d3.json("data/official_data.json", (data) => {
+  d3.json("data/official_data.json", (data,error) => {
     if (error) {
       console.error('Error loading JSON data:', error);
       return;
