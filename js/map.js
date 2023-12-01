@@ -59,7 +59,7 @@ d3.json("../data/states.json", function(error, topologies) {
                     console.log(d.Population)   //debugging
                     return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Local_police];
                 });
-                    //TODO: Add color
+                    //TODO: Add legend
                     //TODO: make the tooltip fancy - should it be a separate object as opposed to the way we learned it in class, or is css enough?
                     //TODO: make map fit page better
                     //TODO: find state data that isn't from the 1790 when maine was a part of massachusetts lol
