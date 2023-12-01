@@ -62,7 +62,7 @@ d3.json("../data/states.json", function(error, topologies) {
                     //TODO: Add legend
                     //TODO: make the tooltip fancy - should it be a separate object as opposed to the way we learned it in class, or is css enough?
                     //TODO: make map fit page better
-                    //TODO: find state data that isn't from the 1790 when maine was a part of massachusetts lol
+                    //TODO: finish brushing and linking
         });
   
     });

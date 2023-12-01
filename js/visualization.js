@@ -4,7 +4,7 @@
 
   console.log("Hello, world!");
 
-  d3.json("data/official_data.json", (data) => {
+  d3.json("data/official_data.json", (error, data) => {
     if (error) {
       console.error('Error loading JSON data:', error);
       return;
@@ -16,6 +16,14 @@
       .selectionDispatcher(d3.dispatch(dispatchString))
       ("#map svg.vis-1", data);
       scatterplot(data);
+
+
+    /* for when brushing and linking is fully implemented
+     mapData.selectionDispatcher().on(dispatchString, function(selectedData) {
+         char.updateSelection(selectedData);
+         treemap.updateSelection(selectedData);
+       });
+    */
 
   });
 

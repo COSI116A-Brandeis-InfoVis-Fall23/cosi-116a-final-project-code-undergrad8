@@ -72,6 +72,46 @@ function map(){
 
         })
 
+        // isBrushing = false;
+        //
+        // //how to make it individual states selectable? var paths = map.selectAll("path")
+        // d3.selectAll("path")
+        // .on("mouseover", (d, i, elements) => {
+        //     d3.select(elements[i]).classed("mouseover", true) //class as "mouseover" to create gray hover
+        //     /*
+        //     the following block of code occurs when the mouse was held down but not yet let up, meaning in a selectable hovering state
+        //     otherwise, if the mouse was not yet held down, or has already been let up, this hovering does not select data
+        //     */
+        //     if(isBrushing){ //true after mouseDown, false after mouseUp or when there has not yet been a mouseDown
+        //       d3.select(elements[i]).classed("selected", true)  //class as "selected" to create dark pink mouseover.selected color
+        //       let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+        //       dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
+        //     }
+        //   })
+        //   .on("mouseout", (d, i, elements) => {
+        //     d3.select(elements[i]).classed("mouseover", false)  //remove gray color; that should only be during individual hover
+        //     if(!isBrushing){  //if you are no longer brushing, dispatch
+        //       let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+        //       dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
+        //     }
+          
+        //   })
+        //   .on("mousedown", (d, i, elements) => {
+        //     d3.selectAll("tr").classed("selected", false) //clear previous selected data
+        //     let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+        //     dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
+        //     isBrushing = true;  //set isBrushing to true to keep track when hovering
+        //     d3.event.preventDefault();  //override the blue highlight
+        //   })
+        //   .on("mouseup", (d, i, elements) => {
+        //     if(isBrushing){ //if you were just brushing, dispatch data
+        //       d3.select(elements[i]).classed("selected", true)
+        //       let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+        //       dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
+        //     }
+        //     isBrushing = false; //set isBrushing to false
+        //   });
+
         return chart;
 
     }
