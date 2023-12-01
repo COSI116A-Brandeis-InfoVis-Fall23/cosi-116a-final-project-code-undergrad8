@@ -12,7 +12,7 @@ var path = d3.geoPath() //set path
 
 d3.json("../data/states.json", function(error, topologies) {
 
-    var state = topojson.feature(topologies[0], topologies[0].objects.stdin);
+    var state = topojson.feature(topologies[12], topologies[12].objects.stdin);
     console.log(state.features) //debugging
     var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
     var newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
@@ -26,7 +26,7 @@ d3.json("../data/states.json", function(error, topologies) {
       .append("path")
         .attr("d", path);
   
-        d3.json("../data/state_local_2021.json", function(error, localCensus2021) {  //nested: join state_local data file to geo data
+        d3.json("../data/official_data.json", function(error, localCensus2021) {  //nested: join state_local data file to geo data
 
             var mergeData = newEnglandData.map(function(newEnglandState) {  //
                 var censusState = localCensus2021.find(function(localCensus) {
@@ -57,7 +57,7 @@ d3.json("../data/states.json", function(error, topologies) {
                 .append("svg:title")
                 .text(function(d) { //tooltip
                     console.log(d.Population)   //debugging
-                    return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Police_protection];
+                    return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Local_police];
                 });
                     //TODO: Add color
                     //TODO: make the tooltip fancy - should it be a separate object as opposed to the way we learned it in class, or is css enough?
@@ -67,3 +67,4 @@ d3.json("../data/states.json", function(error, topologies) {
   
     });
 
+ 
