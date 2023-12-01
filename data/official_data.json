@@ -1,0 +1,62 @@
+[
+    {
+      "STATENAM": "Connecticut",
+      "State_revenue": 56022939,
+      "Local_revenue": 23681134,
+      "State_police": 256093,
+      "Local_police": 1051360,
+      "Population": 3605944,
+      "Average_income": 47869,
+      "Police_per_capita": 0.291563041
+    },
+    {
+      "STATENAM": "Maine",
+      "State_revenue": 16641848,
+      "Local_revenue": 7028891,
+      "State_police": 95950,
+      "Local_police": 257166,
+      "Population": 1362359,
+      "Average_income": 36171,
+      "Police_per_capita": 0.188765223
+    },
+    {
+      "STATENAM": "Massachusetts",
+      "State_revenue": 98853159,
+      "Local_revenue": 45975494,
+      "State_police": 573020,
+      "Local_police": 1890827,
+      "Population": 7029917,
+      "Average_income": 48617,
+      "Police_per_capita": 0.268968609
+    },
+    {
+      "STATENAM": "New Hampshire",
+      "State_revenue": 13388938,
+      "Local_revenue": 7148821,
+      "State_police": 73740,
+      "Local_police": 412408,
+      "Population": 1377529,
+      "Average_income": 43877,
+      "Police_per_capita": 0.299382445
+    },
+    {
+      "STATENAM": "Rhode Island",
+      "State_revenue": 21443482,
+      "Local_revenue": 5878581,
+      "State_police": 96209,
+      "Local_police": 398489,
+      "Population": 1097379,
+      "Average_income": 39603,
+      "Police_per_capita": 0.363127962
+    },
+    {
+      "STATENAM": "Vermont",
+      "State_revenue": 20370280,
+      "Local_revenue": 3571440,
+      "State_police": 160213,
+      "Local_police": 122465,
+      "Population": 643077,
+      "Average_income": 37903,
+      "Police_per_capita": 0.190435982
+    }
+   ]
