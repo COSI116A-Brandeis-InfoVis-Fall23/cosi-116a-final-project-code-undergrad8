@@ -41,7 +41,6 @@ h1, h2, h3 {
 }
 
 .map-holder{
-
   max-width: 500px;
   max-height: 400px;
   margin: 40px auto;
@@ -60,18 +59,16 @@ h1, h2, h3 {
     transform-origin: center; /* This ensures scaling happens from the center of the element */
 }
 .treemap-holder{
-	width: 100%;
-  height: 100%;
-  max-width: 650px;
-  margin: 40px auto;
-  display: flex;
-  flex-direction: column;
+	width: auto;
+	min-height: 500px;
+  	display: flex;
+  	flex-direction: column;
+	margin-top: 100px;
 }
 
 .vis-2 {
-width: 100%;
-	height: 100%;
-	margin: 40px auto;
+	transform: scale(2.2)translate(0px, 100px);
+	transform-origin: center;
 }
 
 .content-column.write-up {

@@ -1,7 +1,8 @@
-state,expenditure
-Massachusetts,	2463847
-Connecticut,	1307453
-New Hampshire,	486148
-Rhode Island,	494698
-Vermont,	282678
-Maine,	353116
+name,parent,value
+Origin,,
+Massachusetts,Origin, 2463847
+Connecticut,Origin, 1307453
+New Hampshire,Origin, 486148
+Rhode Island,Origin, 494698
+Vermont,Origin, 282678
+Maine,Origin, 353116
