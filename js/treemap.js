@@ -2,9 +2,8 @@ var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 500 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
+// append the svg 
 d3.select("#vis-2").html("");
-    // Append the svg object to your page
 const svg = d3.select("#vis-2")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
@@ -16,20 +15,17 @@ d3.csv('data/tree.csv', function(data) {
 
   // stratify the data: reformatting for d3.js
   var root = d3.stratify()
-    .id(function(d) { return d.name; })   // Name of the entity (column name is name in csv)
-    .parentId(function(d) { return d.parent; })   // Name of the parent (column name is parent in csv)
+    .id(function(d) { return d.name; })   
+    .parentId(function(d) { return d.parent; })   
     (data);
-  root.sum(function(d) { return +d.value })   // Compute the numeric value for each entity
+  root.sum(function(d) { return +d.value })   
 
-  // Then d3.treemap computes the position of each element of the hierarchy
-  // The coordinates are added to the root object above
   d3.treemap()
     .size([width, height])
     .padding(6)
     (root)
 
 console.log(root.leaves())
-  // use this information to add rectangles:
   svg
     .selectAll("rect")
     .data(root.leaves())
@@ -48,8 +44,8 @@ console.log(root.leaves())
     .data(root.leaves())
     .enter()
     .append("text")
-      .attr("x", function(d){ return d.x0+4})    // +10 to adjust position (more right)
-      .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+      .attr("x", function(d){ return d.x0+4})   
+      .attr("y", function(d){ return d.y0+20})    
       .text(function(d){ return d.data.name})
       .attr("font-size", "13px")
       .attr("fill", "white")
