@@ -61,21 +61,26 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
         .attr("r", 2.5)
-        .style("fill", "#FF0000");
+        .style("fill", 'green');
     // Array of labels corresponding to the first six data points
     const labels = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont'];
-
+    data.forEach((d, i) => {
+        d.label = labels[i]; // Assuming 'labels' array is available and matches your data
+    });
     // Add labels to the first six data points
     svg.append('g')
-       .selectAll("text")
-       .data(data.slice(0, 6)) // Take only the first six elements
-       .enter()
-       .append("text")
-       .attr("x", d => x(d.x) + 5) // Position text right of the dot
-       .attr("y", d => y(d.y) - 5) // Position text above the dot
-       .text((d, i) => labels[i]) // Use the index to get the corresponding label
-       .attr("font-size", "10px")
-       .attr("fill", "black");
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", d => x(d.x))
+    .attr("cy", d => y(d.y))
+    .attr("r", 2.5)
+    .style("fill", 'green')
+    // Store the label in each circle
+    .each(function(d) {
+        d3.select(this).attr("data-label", d.label);
+    });
 
     // Add title to the scatterplot
     svg.append("text")
@@ -85,7 +90,39 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
         .style("font-size", "16px")
         .style("text-decoration", "underline")
         .text(`${xLabel} vs ${yLabel}`);
+    const brush = d3.brush().extent([[0,0],[width,height]])
+    .on('start brush',brushed)
+    .on('end',brushended);
 
+    svg.append("g")
+       .attr("class", "brush")
+       .call(brush);
+    function brushed() {
+        const selection = d3.event.selection;
+        if (selection) {
+            const [[x0, y0], [x1, y1]] = selection;
+            const selectedLabels = [];
+    
+            svg.selectAll("circle")
+               .each(function(d) {
+                   const isSelected = x0 <= x(d.x) && x(d.x) <= x1 && y0 <= y(d.y) && y(d.y) <= y1;
+                   if (isSelected) {
+                       selectedLabels.push(d.label);
+                   }
+                   d3.select(this).classed("selected", isSelected);
+               });
+    
+            console.log("Selected labels:", selectedLabels.join(", "));
+        }
+    }
+
+    function brushended() {
+        const selection=d3.event.selection;
+        if (!selection) {
+            console.log('dots deselected');
+            svg.selectAll("circle").classed("selected", false);
+        }
+    }
 }
 
 function processData(data, xKey, yKey) {
