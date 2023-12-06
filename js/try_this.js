@@ -2,7 +2,7 @@ function map(){
 
     // let ourBrush = null,
     // selectableElements = d3.select(null),
-    // dispatcher;
+    // dispatcher = d3.dispatch("brushed");;
 
     function chart(selector, data) {
 
@@ -38,6 +38,11 @@ function map(){
                 .attr("d", path)
                 .attr("class", "map-element");
 
+            map.selectAll(".map-element")
+            .each(function(d, i) {
+                console.log("Element " + i + ":", d);
+            });
+
             //     console.log("what's in here");
             // console.log(data);
 
@@ -63,6 +68,8 @@ function map(){
                         .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
         
                     //console.log(mergeData)  //debugging
+                    
+                    let isBrushing = false
                 
                     var paths = map.selectAll("path") //create new paths SVG selection 
                         .data(mergeData)
@@ -74,41 +81,49 @@ function map(){
                         .style("fill", function(d) {
                             return colorScale(d.Police_per_capita); //color them!
                         })
-                        // .on("mouseover", function(d){   //testing out mouse events for brushing and linking
-                        //     console.log("mouseover")
-            //                 d3.select(path).classed("mouseover", true)
+            //             .on("mouseover", function(d){   //testing out mouse events for brushing and linking
+            //                 console.log("mouseover")
+            //                  d3.select(".map-element").classed("mouseover", true)
             //                 if(isBrushing){ //true after mouseDown, false after mouseUp or when there has not yet been a mouseDown
-            //                     d3.select(path[i]).classed("selected", true)  //class as "selected" to create dark pink mouseover.selected color
-            //                     let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-            //                     dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
+            //                     d3.select(".map-element").classed("selected", true)  //class as "selected" to create dark pink mouseover.selected color
+            //                     dispatcher.call("brushed", this, map.selectAll(".selected").data());
+            //                     //let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+            //                     //dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
             //                 }
-             //           })
-                        // .on("mouseout", function(d){
-                        //     console.log("mouseout")
-            //                 d3.select(path).classed("mouseover", false)
+            //             })
+            //             .on("mouseout", function(d){
+            //                 console.log("mouseout")
+            //                 d3.select(".map-element").classed("mouseover", false)
             //                 if(!isBrushing){  //if you are no longer brushing, dispatch
-            //                     let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-            //                     dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
+            //                     dispatcher.call("brushed", this, map.selectAll(".selected").data());  //dispatch
+            //                     //let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+            //                     //dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
             //                 }
-                        //  })
-                        // .on("mousedown", function(d){
-                        //     console.log("mousedown")
-            //                 d3.selectAll("path").classed("selected", false) //clear previous selected data
-            //                 let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-            //                 dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
+            //              })
+            //             .on("mousedown", function(d){
+            //                 console.log("mousedown")
+            //                 d3.selectAll(".map-element").classed("selected", false) //clear previous selected data
+            //                 dispatcher.call("brushed", this, map.selectAll(".selected").data());  //dispatch
+            //                 //let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+            //                // dispatcher.call(dispatchString, this, map.selectAll(".selected").data());  //dispatch
             //                 isBrushing = true;  //set isBrushing to true to keep track when hovering
             //                 d3.event.preventDefault();  //override the blue highlight
-                        // })
-                        // .on("mouseup", function(d){
-                        //     console.log("mouseup")
+            //             })
+            //             .on("mouseup", function(d){
+            //                 console.log(d3.selectAll(".map-element").classed("selected", true)
+            //                 .each(function(d, i) {
+            //                     console.log("Element " + i + ":", d);
+            //                 }));
+            //                 console.log("mouseup")
             //                 console.log("up")
             //                 if(isBrushing){ //if you were just brushing, dispatch data
-            //                      d3.select(path).classed("selected", true)
-            //                      let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
-            //                     dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
+            //                      d3.select(".map-element").classed("selected", true)
+            //                      dispatcher.call("brushed", this, map.selectAll(".selected").data());  //dispatch
+            //                      //let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];
+            //                     //dispatcher.call(dispatchString, this, map.selectAll(".selected").data());
             //                 }
             // isBrushing = false; //set isBrushing to false
-             //            })
+            //             })
                         .append("svg:title")
                         .text(function(d) { //tooltip
                             console.log(d.Population)   //debugging
@@ -149,35 +164,43 @@ function map(){
 
         })
 
-var brush = d3.brush()
-.on("start brush", brushed)
-.on("end", brushended);
+        const brush = d3.brush().extent([[0,0],[width,height]])
+        // .handleSize(50) 
+        .on('start brush',brushed)
+        .on('end',brushended);
 
 // svg = d3.select("#map svg.vis-1")
 
 console.log(map)
 console.log(selector)
 
-map.append("svg.vis-1") //matching console output for grant's svg
+map.append("g") //matching console output for grant's svg
     .attr("class", "brush")
-    .call(brush)
-    .on("start brush", function () {    //debugging :(
-        console.log("Brushing started");
-    })
-    .on("end", function () {
-        console.log("Brushing ended");
-    });
+    .call(brush);
 console.log("reached code");
 
 function brushed() {
+    var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
     const selection = d3.event.selection;
-    console.log("brushend: ", selection);
+    console.log("brushed: ", selection);
     if (selection) {
-        console.log("selected");
+        sharedState.selectedLabels.clear();
         const [[x0, y0], [x1, y1]] = selection;
-        const selectedData = mergeData.filter(function(d) {
-            return newEngland.includes(d.properties.STATENAM);  //filter by statename
+        console.log("selected");
+        const selectedData = mergeData.filter(function (d) {
+            // const bounds = path.bounds(d);   //for topojson, not using because less useful
+            const [x, y] = path.centroid(d);
+            return (
+                newEngland.includes(d.properties.STATENAM) &&
+                x >= selection[0][0] && x <= selection[1][0] &&
+                y >= selection[0][1] && y <= selection[1][1]
+            );
         });
+        console.log(selectedData)
+        selectedData.forEach(function(d){
+            sharedState.selectedLabels.add(d.properties.STATENAM);
+        })
+        console.log("Selected labels:", sharedState.selectedLabels);
     updateSelection(selectedData);
     }
 }
@@ -185,22 +208,36 @@ function brushed() {
 function brushended() {
     const selection = d3.event.selection;
     console.log("brushend: ", selection);
-    if (!selection) {
+    if (!selection) {   // needs to press away to deselect
         console.log('Brush deselected');
+        sharedState.selectedLabels.clear();
+        d3.selectAll(".map-element").classed("selected", false)
         updateSelection([]);    //clear selection
     }
 }
 
 function updateSelection(selectedData) {    //basic update selection function, will be changed to implement recoloring
-    map.selectAll("path")
-        .classed("selected", function(d) {
-            return selectedData.some(function(selected) {
-                return d.properties.STATENAM === selected.properties.STATENAM;
-            });
+    d3.selectAll(".map-element").classed("selected", false)
+    map.selectAll(".map-element").each(function(d){
+        if(sharedState.selectedLabels.has(d.STATENAM)){
+            d3.select(this).classed("selected", true)
+        }else{
+            d3.select(this).classed("unselected", true)
+        }
     });
+    var Per_Capitas = selectedData.map(function(d) {    //the range is based on selected data only!
+        return d.Police_per_capita;
+    });
+    var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+                        .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+    map.selectAll(".map-element.unselected")
+        .style("fill", "gray");
+    map.selectAll(".map-element.selected")
+        .style("fill", function(d) {
+            return colorScale(d.Police_per_capita); //color them!
+        })
+    console.log(map.selectAll(".map-element.selected").data());
 
-    let dispatchString = Object.getOwnPropertyNames(dispatcher._)[0];   //update dispatcher for other visualizations
-    dispatcher.call(dispatchString, this, selectedData);
 }
 
     return chart;

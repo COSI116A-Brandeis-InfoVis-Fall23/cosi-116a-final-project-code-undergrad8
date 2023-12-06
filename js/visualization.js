@@ -15,9 +15,9 @@ var sharedState={
 
     const dispatchString = "selectionUpdated";
     let mapData = map(data)
-     // map(data);
-      // .selectionDispatcher(d3.dispatch(dispatchString))
-    ("#map svg.vis-1", data);
+     //map(data);
+      //.selectionDispatcher(d3.dispatch(dispatchString))
+      ("#map svg.vis-1", data);
     scatterplot(data);
     treemap();
 
