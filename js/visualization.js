@@ -3,6 +3,7 @@
 var sharedState={
   selectedLabels: new Set()
 };
+var dispatcher = d3.dispatch("selectionUpdated");
 ((() => {
 
   console.log("Hello, world!");
@@ -14,20 +15,14 @@ var sharedState={
     }
 
     const dispatchString = "selectionUpdated";
-<<<<<<< HEAD
-    let mapData = map()
-      .selectionDispatcher(d3.dispatch(dispatchString))
-      ("#map svg.vis-1", data);
-      scatterplot(data);
-      treemap(d3.dispatch);
-=======
+
     let mapData = map(data)
      //map(data);
       //.selectionDispatcher(d3.dispatch(dispatchString))
       ("#map svg.vis-1", data);
     scatterplot(data);
     treemap();
->>>>>>> e59b9e5e79b13441bba86983ab983c09f54dc0c6
+
 
     /* for when brushing and linking is fully implemented
      mapData.selectionDispatcher().on(dispatchString, function(selectedData) {

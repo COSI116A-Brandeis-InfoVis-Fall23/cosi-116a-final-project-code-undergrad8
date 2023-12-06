@@ -1,5 +1,8 @@
 function scatterplot(data){
-    
+    dispatcher.on("selectionUpdated", function(selectedLabels) {
+        console.log("scacterplot I hear");
+       updateAllVis();
+    });
         // Now 'data' contains your JSON data
         
         const processedData=processData(data,'Population','State_police');
@@ -166,6 +169,7 @@ function updateAllVis(){
             .classed("selected", d => sharedState.selectedLabels.has(d.label));
     });
     //update other graphs
+
 
     
 }
