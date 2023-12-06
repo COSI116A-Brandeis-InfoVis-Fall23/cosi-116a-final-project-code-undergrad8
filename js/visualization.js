@@ -18,7 +18,7 @@ var sharedState={
       .selectionDispatcher(d3.dispatch(dispatchString))
       ("#map svg.vis-1", data);
       scatterplot(data);
-      treemap();
+      treemap(d3.dispatch);
 
     /* for when brushing and linking is fully implemented
      mapData.selectionDispatcher().on(dispatchString, function(selectedData) {

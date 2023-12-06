@@ -1,10 +1,12 @@
-function treemap(){
+function treemap(dispatch){
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 850 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
 
 // append the svg 
 d3.select("#vis-2").html("");
+var colorScale = d3.scaleSequential(d3.interpolateBlues)
+  .domain([-0.1,0.6]);
 const svg = d3.select("#vis-2")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
@@ -29,8 +31,7 @@ d3.csv('data/tree.csv', function(data) {
     .padding(3)
     (root)
 
-var colorScale = d3.scaleSequential(d3.interpolateBlues)
-  .domain([-0.1,0.6]);
+
 
 console.log(root.leaves())
   svg
@@ -71,6 +72,18 @@ console.log(root.leaves())
     .attr("font-size", "13px")
     .attr("fill", "white");
 })
+function updateTreemap() {
+  const selectedLabels = sharedState.selectedLabels; // Access selected labels from sharedState
+  svg.selectAll("rect")
+     .style("fill", d => selectedLabels.includes(d.data.name) ? "red" : originalFillColor(d));
+}
+function originalFillColor(d){
+  return colorScale(d.data.percent);
+}
+dispatch.on("selectionUpdated.treemap", function(selectedLabels) {
+  updateTreemap();
+});
+
 
 }
 

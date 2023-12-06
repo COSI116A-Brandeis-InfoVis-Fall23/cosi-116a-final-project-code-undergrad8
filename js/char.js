@@ -160,10 +160,12 @@ function processData(data, xKey, yKey) {
 }
 
 function updateAllVis(){
-    console.log('Now update other vis(about to implement)');
+    console.log('Now update other scatterplots(about to implement updates on other vis)');
     Object.values(scatterplots).forEach(svg => {
         svg.selectAll("circle")
             .classed("selected", d => sharedState.selectedLabels.has(d.label));
     });
     //update other graphs
+
+    
 }
