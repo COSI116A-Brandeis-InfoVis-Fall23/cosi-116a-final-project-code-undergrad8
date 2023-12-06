@@ -59,10 +59,16 @@ d3.json("../data/states.json", function(error, topologies) {
                     console.log(d.Population)   //debugging
                     return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Local_police];
                 });
-                    //TODO: Add legend
-                    //TODO: make the tooltip fancy - should it be a separate object as opposed to the way we learned it in class, or is css enough?
+                    //TODO: demo video + fill in other sections of index.html
+                    //TODO: make color encoding match for scatterplot to match map/treemap
+                    //TODO: any additional data cleanup (e.g. total instead of local for map)
+                    //TODO: brushing and linking from scatterplot to map
+                    //TODO: make sure that all interactions/labels are clear to figure out or annotated
+                    //TODO: general layout fixes
+
+                    //TODO: make legend recolor with brushing and linking
                     //TODO: make map fit page better
-                    //TODO: finish brushing and linking
+                    //TODO: optional: brushing and linking with treemap
         });
   
     });
