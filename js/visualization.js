@@ -1,13 +1,16 @@
-// Immediately Invoked Function Expression to limit access to our 
-// variables and prevent 
-var sharedState={
-  selectedLabels: new Set()
-};
-var dispatcher = d3.dispatch("selectionUpdated");
 ((() => {
 
   console.log("Hello, world!");
   // console.log(sharedState.selectedLabels);
+
+  // Immediately Invoked Function Expression to limit access to our 
+  // variables and prevent 
+  var sharedState={
+    selectedLabels: new Set()
+  };
+  var mapDispatcher = d3.dispatch("selectionUpdated");
+  var scatterplotDispatcher = d3.dispatch("selectionUpdated");
+
   d3.json("../data/official_data.json", (error, data) => {
     if (error) {
       console.error('Error loading JSON data:', error);
@@ -16,20 +19,15 @@ var dispatcher = d3.dispatch("selectionUpdated");
 
     const dispatchString = "selectionUpdated";
 
-    let mapData = map(data)
+    
+    // let mapData = map()
      //map(data);
       //.selectionDispatcher(d3.dispatch(dispatchString))
-      ("#map svg.vis-1", data);
-    scatterplot(data);
+      
+    map("#map svg.vis-1", data, mapDispatcher, scatterplotDispatcher, sharedState);
+    scatterplot(data, scatterplotDispatcher, mapDispatcher, sharedState);
+    
     treemap();
-
-
-    /* for when brushing and linking is fully implemented
-     mapData.selectionDispatcher().on(dispatchString, function(selectedData) {
-         char.updateSelection(selectedData);
-         treemap.updateSelection(selectedData);
-       });
-    */
 
   });
 
