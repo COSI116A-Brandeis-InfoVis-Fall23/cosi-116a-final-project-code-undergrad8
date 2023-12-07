@@ -47,6 +47,7 @@ circle.selected{
   max-height: 400px; */
   margin: 40px auto;
   display:block;
+  max-height: 400px;
 }
 
 .vis-1 {
@@ -54,7 +55,7 @@ circle.selected{
 	transform-origin: center; */
   /* max-width: 500px;
   max-height: 400px; */
-  transform: translate(0px, -200px);
+  transform: translate(0px, -300px);
   width: 800px;
   height: 300px;
   display:inline;

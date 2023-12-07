@@ -128,6 +128,11 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             .style("fill", "url(#linear-gradient)")
             .attr("transform", "translate(480, 275)")
 
+            map.append("text")
+                .text("Police expenditure per capita, 2021")
+                .attr("x", 470) // Adjust the x-coordinate to center the label based on the width of the rect
+                .attr("y", 270);
+
     })
 
     const brush = d3.brush().extent([[0,0],[width,height]])
