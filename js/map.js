@@ -93,7 +93,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
                 .append("svg:title")
                 .text(function(d) { //tooltip
                     console.log(d.Population)   //debugging
-                    return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Local_police];
+                    return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Total_police];
                 });
 
         })
@@ -180,7 +180,15 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             console.log('Brush deselected');
             sharedState.selectedLabels.clear();
             d3.selectAll(".map-element").classed("selected", false)
-            updateSelection([]);    //clear selection
+            var Per_Capitas = mergeData.map(function(d) {
+                return d.Police_per_capita;
+                });
+            var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+                .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+            map.selectAll(".map-element.unselected")
+                .style("fill", function(d) {
+                return colorScale(d.Police_per_capita); //color them!
+            })
         }
     }
 
