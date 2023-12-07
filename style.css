@@ -54,8 +54,9 @@ circle.selected{
 	transform-origin: center; */
   /* max-width: 500px;
   max-height: 400px; */
-  width: 750px;
-  height: 250px;
+  transform: translate(0px, -200px);
+  width: 800px;
+  height: 300px;
   display:inline;
 }
 /* #states {

@@ -17,7 +17,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
         height = window.innerHeight;
 
     let projection = d3.geoAlbersUsa()
-        .scale(2000)    //resize so it can focus in on new england
+        .scale(1900)    //resize so it can focus in on new england
         .translate([width/500, height/2])
         .precision(.1);
 
@@ -123,9 +123,10 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
                 });
 
             map.append("rect")  //this appends it to the map. i want to update the positioning of this next
-            .attr("width", 300)
+            .attr("width", 250)
             .attr("height", 20)
             .style("fill", "url(#linear-gradient)")
+            .attr("transform", "translate(480, 275)")
 
     })
 
