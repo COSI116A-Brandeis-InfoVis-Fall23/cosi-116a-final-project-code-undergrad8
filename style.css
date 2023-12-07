@@ -43,23 +43,25 @@ circle.selected{
 	fill:red !important
 }
 .map-holder{
-  max-width: 500px;
-  max-height: 400px;
+  /* max-width: 500px;
+  max-height: 400px; */
   margin: 40px auto;
-  display:inline;
+  display:block;
 }
 
 .vis-1 {
-	transform: scale(2.2)translate(0px, 100px);
-	transform-origin: center;
-  max-width: 500px;
-  max-height: 400px;
+	/* transform: scale(2.2)translate(0px, 100px);
+	transform-origin: center; */
+  /* max-width: 500px;
+  max-height: 400px; */
+  width: 750px;
+  height: 250px;
   display:inline;
 }
-#states {
+/* #states {
     transform: scale(2.2)translate(0px, 100px); /* Adjust the scale as needed */
-    transform-origin: center; /* This ensures scaling happens from the center of the element */
-}
+/*    transform-origin: center; /* This ensures scaling happens from the center of the element */
+/* } */
 .treemap-holder{
 	width: auto;
 	min-height: 500px;

@@ -13,10 +13,10 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
         updateSelection(selectedLabels);
     });
 
-    var width = window.innerWidth,  //scale + center map
+    let width = window.innerWidth,  //scale + center map
         height = window.innerHeight;
 
-    var projection = d3.geoAlbersUsa()
+    let projection = d3.geoAlbersUsa()
         .scale(2000)    //resize so it can focus in on new england
         .translate([width/500, height/2])
         .precision(.1);
@@ -27,16 +27,16 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
         .append("svg")
         .classed("vis-1", true);
 
-    var path = d3.geoPath() //set path
+    let path = d3.geoPath() //set path
         .projection(projection);
 
     let mergeData;
 
     d3.json("../data/states.json", function(error, topologies) {
-        var state = topojson.feature(topologies[12], topologies[12].objects.stdin); //use topologies[12] so that the geodata is from 1910, not 1790 lol
+        let state = topojson.feature(topologies[12], topologies[12].objects.stdin); //use topologies[12] so that the geodata is from 1910, not 1790 lol
         //console.log(state.features) //debugging
-        var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
-        var newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
+        let newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
+        let newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
             return newEngland.includes(state.properties.STATENAM);    //STATENAM is the property in the JSON which we need to match
             });
         //console.log(newEnglandData) //debugging
@@ -64,23 +64,23 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             console.log(data);
 
             mergeData = newEnglandData.map(function(newEnglandState) {
-                var censusState = data.find(function(localCensus) {
+                let censusState = data.find(function(localCensus) {
                     return localCensus.STATENAM === newEnglandState.properties.STATENAM; //compare the STATENAM property from the geo new england data and the census data
                 });
 
                 return Object.assign({}, newEnglandState, censusState); //assign properties of censusState to newEnglandState
                 });
 
-            var Per_Capitas = mergeData.map(function(d) {
+            let Per_Capitas = mergeData.map(function(d) {
                 return d.Police_per_capita;
                 });
 
-            var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+            let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
                 .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
 
             //console.log(mergeData)  //debugging
         
-            var paths = map.selectAll("path") //create new paths SVG selection 
+            let paths = map.selectAll("path") //create new paths SVG selection 
                 .data(mergeData)
                 .enter()
                 .append("path")
@@ -99,12 +99,12 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
         })
 
             //appending legend: following tutorial from https://www.visualcinnamon.com/2016/05/smooth-color-legend-d3-svg-gradient/
-            var defs = map.append("defs");
+            let defs = map.append("defs");
 
-            var legendScale = d3.scaleLinear()  //create a linear scale with colors chosen to match map colors using color brewer
+            let legendScale = d3.scaleLinear()  //create a linear scale with colors chosen to match map colors using color brewer
                 .range(["#eff3ff", "#2171b5"]);
 
-            var linearGradient = defs.append("linearGradient")
+            let linearGradient = defs.append("linearGradient")
                 .attr("id", "linear-gradient")
                 .attr("x1", "0%")
                 .attr("y1", "0%")
@@ -146,7 +146,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
     console.log("reached code");
 
     function mapbrushed() {
-        var newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
+        let newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
         const selection = d3.event.selection;
         console.log("mapbrushed: ", selection);
         if (selection) {
@@ -180,10 +180,10 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             console.log('Brush deselected');
             sharedState.selectedLabels.clear();
             d3.selectAll(".map-element").classed("selected", false)
-            var Per_Capitas = mergeData.map(function(d) {
+            let Per_Capitas = mergeData.map(function(d) {
                 return d.Police_per_capita;
                 });
-            var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+            let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
                 .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
             map.selectAll(".map-element.unselected")
                 .style("fill", function(d) {
@@ -201,15 +201,15 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
                 d3.select(this).classed("unselected", true)
             }
         });
-        var selectedData = mergeData.filter(function (d) {
+        let selectedData = mergeData.filter(function (d) {
             return sharedState.selectedLabels.has(d.properties.STATENAM);
         });
 
-        var Per_Capitas = selectedData.map(function(d) {    //the range is based on selected data only!
+        let Per_Capitas = selectedData.map(function(d) {    //the range is based on selected data only!
             return d.Police_per_capita;
         });
 
-        var colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+        let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
                             .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
 
         map.selectAll(".map-element.unselected")

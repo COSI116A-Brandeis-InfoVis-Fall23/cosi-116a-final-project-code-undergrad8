@@ -24,7 +24,7 @@
      //map(data);
       //.selectionDispatcher(d3.dispatch(dispatchString))
       
-    map("#map svg.vis-1", data, mapDispatcher, scatterplotDispatcher, sharedState);
+    map("#map", data, mapDispatcher, scatterplotDispatcher, sharedState);
     scatterplot(data, scatterplotDispatcher, mapDispatcher, sharedState);
     
     treemap();
