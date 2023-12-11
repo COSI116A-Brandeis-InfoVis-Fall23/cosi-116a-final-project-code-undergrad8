@@ -10,6 +10,7 @@
   };
   var mapDispatcher = d3.dispatch("selectionUpdated");
   var scatterplotDispatcher = d3.dispatch("selectionUpdated");
+  var treemapDispatcher = d3.dispatch("selectionUpdated")
 
   d3.json("../data/official_data.json", (error, data) => {
     if (error) {
@@ -24,10 +25,10 @@
      //map(data);
       //.selectionDispatcher(d3.dispatch(dispatchString))
       
-    map("#map", data, mapDispatcher, scatterplotDispatcher, sharedState);
-    scatterplot(data, scatterplotDispatcher, mapDispatcher, sharedState);
+    map("#map", data, mapDispatcher, scatterplotDispatcher, treemapDispatcher, sharedState);
+    scatterplot(data, scatterplotDispatcher, mapDispatcher, treemapDispatcher, sharedState);
     
-    treemap();
+    treemap(treemapDispatcher, sharedState);
 
   });
 
