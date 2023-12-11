@@ -53,14 +53,18 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", `translate(0, ${height})`)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .style("font-size", "8px");
 
     // Add Y axis
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.y)])
         .range([height, 0]);
     svg.append("g")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y))
+        .selectAll("text")
+        .style("font-size", "8px");
 
     // Add dots
     svg.append('g')
@@ -82,6 +86,24 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
         d.abbreviation = abbreviations[i]; // Assuming 'labels' array is available and matches your data
     });
    console.log(labels)
+
+   // Add title for x-axis
+svg.append("text")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 30) + ")")
+    .style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text(xLabel);
+
+// Add title for y-axis
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left - 3.5)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text(yLabel);
+
 
     //add dots
     svg.append('g')
