@@ -1,4 +1,4 @@
-function treemap(dispatch){
+function treemap(dispatch3, sharedState){
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 850 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
@@ -74,13 +74,19 @@ console.log(root.leaves())
 })
 function updateTreemap() {
   const selectedLabels = sharedState.selectedLabels; // Access selected labels from sharedState
+  if(selectedLabels.size===0){
+    console.log("IF ITS EMPTY");
+    svg.selectAll("rect")
+     .style("fill", d => originalFillColor(d));
+  }else{
   svg.selectAll("rect")
-     .style("fill", d => selectedLabels.includes(d.data.name) ? "red" : originalFillColor(d));
+     .style("fill", d => selectedLabels.has(d.data.name) ? originalFillColor(d) : "gray");
+  }
 }
 function originalFillColor(d){
   return colorScale(d.data.percent);
 }
-dispatch.on("selectionUpdated.treemap", function(selectedLabels) {
+dispatch3.on("selectionUpdated.treemap", function(selectedLabels) {
   updateTreemap();
 });
 
