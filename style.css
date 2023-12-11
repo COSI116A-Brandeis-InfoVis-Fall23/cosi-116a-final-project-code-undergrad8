@@ -11,7 +11,8 @@ svg {
   }
 
 h1, h2, h3 {
-	line-height: 1.2
+	line-height: 1.2;
+	text-align: center;
 }
 
 /* Your text should be in a nice narrow column */
@@ -22,10 +23,11 @@ h1, h2, h3 {
 
 /* But your visualization should be full-width and full-height */
 .vis-holder {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 70%;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1100px;
+  max-height:1200px;
   display : flex;
   flex-direction: column;
 }
@@ -41,21 +43,23 @@ h1, h2, h3 {
 	justify-content: space-around;
 }
 .chart-holder svg{
-   width: 50%;
+   padding:50px;
+   width: 40%;
    height:auto;
-   min-height: 300px;
+   min-height: 250px;
+   min-width: 200px;
 }
 circle.selected{
 	fill:rgb(0, 80, 200) !important
 }
-.map-holder{
+.vis-holder .map-holder{
   /* max-width: 500px;
   max-height: 400px; */
   margin: 40px auto;
   display:block;
-  max-height: 400px;
+  max-height: 0px;
   max-width: 600px;
-  transform: translate(-200px,0px);
+  
 }
 
 .vis-1 {
@@ -63,7 +67,7 @@ circle.selected{
 	transform-origin: center; */
   /* max-width: 500px;
   max-height: 400px; */
-  transform: translate(-400px, -300px);
+  transform: translate(-330px, -20px);
   width: 800px;
   height: 300px;
   display:inline;
@@ -77,7 +81,8 @@ circle.selected{
 	min-height: 500px;
   	display: flex;
   	flex-direction: column;
-	margin-top: 100px;
+	margin-top: 0px;
+	transform: translate(-100px,-280px);
 }
 
 .vis-2 {

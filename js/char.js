@@ -62,16 +62,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Add dots
-    svg.append('g')
-        .selectAll("dot")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("cx", d => x(d.x))
-        .attr("cy", d => y(d.y))
-        .attr("r", 2.5)
-        .style("fill", 'green');
+
     // Array of labels corresponding to the first six data points
     const labels = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont'];
     const abbreviations = ['CT', 'ME', 'MA', 'NH', 'RI', 'VT'];
@@ -128,7 +119,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
        .call(brush);
     function brushed() {
         const selection = d3.event.selection;
-        d3.selectAll("circle").style("fill", "gray");
+       // d3.selectAll("circle").style("fill", "gray");
         if (selection) {
             const [[x0, y0], [x1, y1]] = selection;
             // console.log(sharedState.selectedLabels);
