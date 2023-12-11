@@ -71,12 +71,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
                 return Object.assign({}, newEnglandState, censusState); //assign properties of censusState to newEnglandState
                 });
 
-            let Per_Capitas = mergeData.map(function(d) {
-                return d.Police_per_capita;
-                });
-
-            let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
-                .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+            colorScale = color(mergeData)   //range based on mergeData
 
             //console.log(mergeData)  //debugging
         
@@ -186,11 +181,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             console.log('Brush deselected');
             sharedState.selectedLabels.clear();
             d3.selectAll(".map-element").classed("selected", false)
-            let Per_Capitas = mergeData.map(function(d) {
-                return d.Police_per_capita;
-                });
-            let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
-                .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+            colorScale = color(mergeData)   //range based on mergeData
             map.selectAll(".map-element.unselected")
                 .style("fill", function(d) {
                 return colorScale(d.Police_per_capita); //color them!
@@ -211,12 +202,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             return sharedState.selectedLabels.has(d.properties.STATENAM);
         });
 
-        let Per_Capitas = selectedData.map(function(d) {    //the range is based on selected data only!
-            return d.Police_per_capita;
-        });
-
-        let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
-                            .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+        colorScale = color(selectedData)    //range based on selectedData
 
         map.selectAll(".map-element.unselected")
             .style("fill", "gray");
@@ -226,6 +212,17 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             })
 
         console.log(map.selectAll(".map-element.selected").data());
+    }
+
+    function color(this_data){
+        let Per_Capitas = this_data.map(function(d) {   //range based on whichever data is passed in
+            return d.Police_per_capita;
+            });
+
+        let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
+            .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+
+        return colorScale
     }
 
     return chart;
