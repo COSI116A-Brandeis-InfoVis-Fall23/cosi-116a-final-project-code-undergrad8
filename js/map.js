@@ -1,11 +1,11 @@
-function map(selector, data, dispatcher, dispatcher2, sharedState){
+function map(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState){
 
     console.log("whats up dispatcher")
-    chart(selector, data, dispatcher, dispatcher2, sharedState)
+    chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState)
 
 }
 
-function chart(selector, data, dispatcher, dispatcher2, sharedState) {
+function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState) {
 
     console.log(dispatcher)
     dispatcher.on("selectionUpdated", function(selectedLabels) {
@@ -172,6 +172,7 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
         }
         console.log('about to send dispatch notice');
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
+        dispatcher3.call("selectionUpdated", null, sharedState.selectedLabels);
     }
 
     function mapbrushended() {
@@ -202,15 +203,21 @@ function chart(selector, data, dispatcher, dispatcher2, sharedState) {
             return sharedState.selectedLabels.has(d.properties.STATENAM);
         });
 
+        if (selectedLabels.size===0){   //if there was just a brushend
+            colorScale = color(mergeData);
+            map.selectAll(".map-element.unselected")
+                .style("fill", function(d) {
+                    return colorScale(d.Police_per_capita); //color them with the original color scale
+                })
+        } else{
         colorScale = color(selectedData)    //range based on selectedData
-
         map.selectAll(".map-element.unselected")
             .style("fill", "gray");
         map.selectAll(".map-element.selected")
             .style("fill", function(d) {
                 return colorScale(d.Police_per_capita); //color them!
             })
-
+        }
         console.log(map.selectAll(".map-element.selected").data());
     }
 
