@@ -46,7 +46,7 @@ h1, h2, h3 {
    min-height: 300px;
 }
 circle.selected{
-	fill:red !important
+	fill:rgb(13,110,253) !important
 }
 .map-holder{
   /* max-width: 500px;

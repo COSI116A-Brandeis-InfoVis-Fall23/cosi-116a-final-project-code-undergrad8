@@ -1,14 +1,9 @@
 function scatterplot(data, dispatcher, dispatcher2, sharedState){
     console.log(dispatcher)
     dispatcher.on("selectionUpdated", function(selectedLabels) {
-<<<<<<< HEAD
-       //console.log("scacterplot I hear");
-       updateAllVis();
-=======
-        console.log("scatterplot I hear");
-        console.log(sharedState)
+       console.log("scatterplot I hear");
+       console.log(sharedState)
        updateAllVis(sharedState);
->>>>>>> b799f6c9b0383fb5286f6e1876d97cec16930abe
     });
         // Now 'data' contains your JSON data
         
@@ -93,7 +88,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, sharedState,svgId,xLabel
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
         .attr("r", 2.5)
-        .style("fill", 'green')
+        .style("fill", 'rgb(13,110,253)')
         // Store the label in each circle
         .each(function(d) {
             d3.select(this).attr("data-label", d.label);
@@ -128,6 +123,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, sharedState,svgId,xLabel
        .call(brush);
     function brushed() {
         const selection = d3.event.selection;
+        d3.selectAll("circle").style("fill", "gray");
         if (selection) {
             const [[x0, y0], [x1, y1]] = selection;
             // console.log(sharedState.selectedLabels);
@@ -148,14 +144,11 @@ function drawScatterPlot(data, dispatcher, dispatcher2, sharedState,svgId,xLabel
             // console.log("Selected labels:", selectedLabels.join(", "));
             updateAllVis(sharedState);
         }
-<<<<<<< HEAD
-        console.log('scatterplot about to send dispatch to map');
-        dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
-=======
+
         console.log('about to send dispatch notice');
         dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
->>>>>>> b799f6c9b0383fb5286f6e1876d97cec16930abe
+
     }
 
     function brushended() {
