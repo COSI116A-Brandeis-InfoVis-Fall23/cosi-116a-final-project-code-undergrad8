@@ -1,6 +1,6 @@
 function scatterplot(data){
     dispatcher.on("selectionUpdated", function(selectedLabels) {
-        console.log("scacterplot I hear");
+       //console.log("scacterplot I hear");
        updateAllVis();
     });
         // Now 'data' contains your JSON data
@@ -141,6 +141,8 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
             // console.log("Selected labels:", selectedLabels.join(", "));
             updateAllVis();
         }
+        console.log('scatterplot about to send dispatch to map');
+        dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
     }
 
     function brushended() {

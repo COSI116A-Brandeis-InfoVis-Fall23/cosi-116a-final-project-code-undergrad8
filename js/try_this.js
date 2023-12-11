@@ -3,6 +3,10 @@ function map(){
     // let ourBrush = null,
     // selectableElements = d3.select(null),
     // dispatcher = d3.dispatch("brushed");;
+    dispatcher.on("selectionUpdated", function(selectedLabels) {
+       console.log("map I hear");
+       updateSelection();
+    });
 
     function chart(selector, data) {
 
@@ -162,7 +166,7 @@ function brushed() {
         console.log("Selected labels:", sharedState.selectedLabels);
     updateSelection(sharedState.selectedLabels);
     }
-    console.log('about to send dispath notice');
+    console.log('map about to send dispath to sps');
     dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
 }
 
