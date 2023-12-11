@@ -55,7 +55,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
       .attr("transform", `translate(0, ${height})`)
       .call(xAxis)
       .selectAll("text")
-      .style("font-size", "8px");
+      .style("font-size", "8px");   //shrink font size so that axis title can fit
 
     // Add Y axis
     const y = d3.scaleLinear()
@@ -64,7 +64,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     svg.append("g")
         .call(d3.axisLeft(y))
         .selectAll("text")
-        .style("font-size", "8px");
+        .style("font-size", "8px"); //shrink font size so that axis title can fit
 
     // Add dots
     svg.append('g')
