@@ -91,13 +91,8 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
         .append("circle")
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-<<<<<<< HEAD
-        .attr("r", 2.5)
-        .style("fill", 'rgb(13,110,253)')
-=======
         .attr("r", 5)
         .style("fill", "rgb(160, 198, 255)")
->>>>>>> f34bdee1e71f04f12e329a3f6ad05de51ebc9af6
         // Store the label in each circle
         .each(function(d) {
             d3.select(this).attr("data-label", d.label);
@@ -158,11 +153,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
         console.log('about to send dispatch notice');
         dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
-<<<<<<< HEAD
-
-=======
         dispatcher3.call("selectionUpdated", null, sharedState.selectedLabels);
->>>>>>> f34bdee1e71f04f12e329a3f6ad05de51ebc9af6
     }
 
     function brushended() {
