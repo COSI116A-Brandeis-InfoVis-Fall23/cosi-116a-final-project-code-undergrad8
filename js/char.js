@@ -1,23 +1,28 @@
-function scatterplot(data){
+function scatterplot(data, dispatcher, dispatcher2, sharedState){
+    console.log(dispatcher)
     dispatcher.on("selectionUpdated", function(selectedLabels) {
+<<<<<<< HEAD
        //console.log("scacterplot I hear");
        updateAllVis();
+=======
+        console.log("scatterplot I hear");
+        console.log(sharedState)
+       updateAllVis(sharedState);
+>>>>>>> b799f6c9b0383fb5286f6e1876d97cec16930abe
     });
         // Now 'data' contains your JSON data
         
         const processedData=processData(data,'Population','State_police');
-        drawScatterPlot(processedData,'scatterplot-1','Population','State Police Protection'); // Call a function to draw the scatter plot
+        drawScatterPlot(processedData, dispatcher, dispatcher2, sharedState,'scatterplot-1','Population','State Police Protection'); // Call a function to draw the scatter plot
         const processedData_second=processData(data,'Average_income','Police_per_capita');
-        drawScatterPlot(processedData_second,'scatterplot-2','Average income','Police per capita');
+        drawScatterPlot(processedData_second,dispatcher, dispatcher2, sharedState, 'scatterplot-2','Average income','Police per capita');
         const processedData_third=processData(data,'State_revenue','State_police');
         console.log(processedData_third);
-        drawScatterPlot(processedData_third,'scatterplot-3','State Revenue','State Police Protection');
+        drawScatterPlot(processedData_third,dispatcher, dispatcher2, sharedState, 'scatterplot-3','State Revenue','State Police Protection');
         const processedData_forth=processData(data,'Local_revenue','Local_police');
         console.log(processedData_forth);
-        drawScatterPlot(processedData_forth,'scatterplot-4','Local Revenue','Local Police Protection');
+        drawScatterPlot(processedData_forth,dispatcher, dispatcher2, sharedState, 'scatterplot-4','Local Revenue','Local Police Protection');
     }
-  
-
 
 var scatterplots = {
         'scatterplot-1': d3.select("#scatterplot-1"),
@@ -26,7 +31,8 @@ var scatterplots = {
         'scatterplot-4': d3.select("#scatterplot-4")
 };
 
-function drawScatterPlot(data,svgId,xLabel,yLabel) {
+function drawScatterPlot(data, dispatcher, dispatcher2, sharedState,svgId,xLabel,yLabel) {
+    console.log("drawing")
 
     // Set the dimensions and margins of the graph
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
@@ -35,6 +41,7 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
     //clear the previous svg content
     d3.select("#"+svgId).html("");
     // Append the svg object to your page
+    console.log("#"+svgId)
     const svg = d3.select("#"+svgId)
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -75,34 +82,34 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
     data.forEach((d, i) => {
         d.label = labels[i]; // Assuming 'labels' array is available and matches your data
     });
-   
+   console.log(labels)
 
     //add dots
     svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => x(d.x))
-    .attr("cy", d => y(d.y))
-    .attr("r", 2.5)
-    .style("fill", 'green')
-    // Store the label in each circle
-    .each(function(d) {
-        d3.select(this).attr("data-label", d.label);
-    });
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => x(d.x))
+        .attr("cy", d => y(d.y))
+        .attr("r", 2.5)
+        .style("fill", 'green')
+        // Store the label in each circle
+        .each(function(d) {
+            d3.select(this).attr("data-label", d.label);
+        });
 
     //add labels to dots
     svg.selectAll(".dot-label")
-    .data(data.slice(0, 6)) // Take only the first six elements
-    .enter()
-    .append("text")
-    .attr("class", "dot-label")
-    .attr("x", d => x(d.x) + 5) // Position text right of the dot
-    .attr("y", d => y(d.y) - 5) // Position text above the dot
-    .text((d, i) => labels[i]) // Use the index to get the corresponding label
-    .attr("font-size", "10px")
-    .attr("fill", "black");
+        .data(data.slice(0, 6)) // Take only the first six elements
+        .enter()
+        .append("text")
+        .attr("class", "dot-label")
+        .attr("x", d => x(d.x) + 5) // Position text right of the dot
+        .attr("y", d => y(d.y) - 5) // Position text above the dot
+        .text((d, i) => labels[i]) // Use the index to get the corresponding label
+        .attr("font-size", "10px")
+        .attr("fill", "black");
 
     // Add title to the scatterplot
     svg.append("text")
@@ -113,8 +120,8 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
         .style("text-decoration", "underline")
         .text(`${xLabel} vs ${yLabel}`);
     const brush = d3.brush().extent([[0,0],[width,height]])
-    .on('start brush',brushed)
-    .on('end',brushended);
+        .on('start brush',brushed)
+        .on('end',brushended);
     
     svg.append("g")
        .attr("class", "brush")
@@ -139,10 +146,16 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
             
             console.log("Selected labels:", sharedState.selectedLabels);
             // console.log("Selected labels:", selectedLabels.join(", "));
-            updateAllVis();
+            updateAllVis(sharedState);
         }
+<<<<<<< HEAD
         console.log('scatterplot about to send dispatch to map');
         dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
+=======
+        console.log('about to send dispatch notice');
+        dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
+        dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
+>>>>>>> b799f6c9b0383fb5286f6e1876d97cec16930abe
     }
 
     function brushended() {
@@ -156,6 +169,7 @@ function drawScatterPlot(data,svgId,xLabel,yLabel) {
 }
 
 function processData(data, xKey, yKey) {
+    console.log("le process")
     return data.map(item => {
         return {
             x: item[xKey],
@@ -164,7 +178,7 @@ function processData(data, xKey, yKey) {
     });
 }
 
-function updateAllVis(){
+function updateAllVis(sharedState){
     console.log('Now update other scatterplots(about to implement updates on other vis)');
     Object.values(scatterplots).forEach(svg => {
         svg.selectAll("circle")

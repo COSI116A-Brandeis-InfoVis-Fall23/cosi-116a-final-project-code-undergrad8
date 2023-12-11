@@ -7,7 +7,8 @@
       "Local_police": 1051360,
       "Population": 3605944,
       "Average_income": 47869,
-      "Police_per_capita": 0.291563041
+      "Police_per_capita": 0.362582725,
+      "Total_police": 1307453
     },
     {
       "STATENAM": "Maine",
@@ -17,7 +18,8 @@
       "Local_police": 257166,
       "Population": 1362359,
       "Average_income": 36171,
-      "Police_per_capita": 0.188765223
+      "Police_per_capita": 0.259194529,
+      "Total_police": 353116
     },
     {
       "STATENAM": "Massachusetts",
@@ -27,7 +29,8 @@
       "Local_police": 1890827,
       "Population": 7029917,
       "Average_income": 48617,
-      "Police_per_capita": 0.268968609
+      "Police_per_capita": 0.35048024,
+      "Total_police": 2463847
     },
     {
       "STATENAM": "New Hampshire",
@@ -37,7 +40,8 @@
       "Local_police": 412408,
       "Population": 1377529,
       "Average_income": 43877,
-      "Police_per_capita": 0.299382445
+      "Police_per_capita": 0.352913078,
+      "Total_police": 486148
     },
     {
       "STATENAM": "Rhode Island",
@@ -47,7 +51,8 @@
       "Local_police": 398489,
       "Population": 1097379,
       "Average_income": 39603,
-      "Police_per_capita": 0.363127962
+      "Police_per_capita": 0.450799587,
+      "Total_police": 494698
     },
     {
       "STATENAM": "Vermont",
@@ -57,6 +62,7 @@
       "Local_police": 122465,
       "Population": 643077,
       "Average_income": 37903,
-      "Police_per_capita": 0.190435982
+      "Police_per_capita": 0.439571,
+      "Total_police": 282678
     }
    ]

@@ -46,6 +46,10 @@
     <h1>Motivation</h1>
     
     <p><em>Summary of user needs and motivating questions.</em></p>
+
+    <p>Our motivation was to explore the relationship between state/local budgets and police expenditure. Do state and local budgets correspond with each other? Are there clear trends between police expenditure and economic brackets or population size? What does police expenditure look like across specific regions?</p>
+    <p> Our visualization was primarily developed for the user to discover this information themselves. With this visualization, we hope to be able to identify discrepancies and analyze trends among state revenue and police expenditure. We focused our data on New England states to provide users with a deeper understanding of a specific region. This data isn't meant for fun — it's meant to help identify how these fundings are allocated. We believe that users will not necessarily know the results or the specific breakdowns, so we hope to allow them the opportunity to discover this data, and perhaps to confirm or disprove pre-existing notions, by interacting with our visualization.</p>
+    <p>The primary consumer of our visualization will be U.S. citizens and taxpayers. We hope that this visualization will be accessed by people interested in politics in order to better understand where their money is going and to get a fuller picture of the budget. Hopefully, people will find this a more accessible way of engaging with their local government and understanding how their taxes are spent for the community.</p>
     
     <p><em>Expectation: There is a clear focus, and a developed explanation of the problem, and a reasonable response is proposed.</em></p>
 
@@ -58,28 +62,28 @@
   
   <!-- Your visualization here -->
   <div class="vis-holder">
-    <div class="map-holder" id="map">
-      <h3>2021 New England, Police Expenditure per capita</h3>
-      <svg class="vis-1"  viewbox = "0 0 1200 500">
-        <g id="states" ></g>
-      </svg>
+    <div class="vis-container">
+      <div class="map-holder" id="map">
+        <h3>2021 New England, Police Expenditure per capita</h3>
+        <svg class="vis-1"  viewBox = "0 0 1200 500">
+          <g id="states" ></g>
+        </svg>
+      </div>
+      <br>
+      <h2>Scatterplots of New England</h2>
+      <div class="chart-holder" id="sp">
+        <svg class="chart-1" id="scatterplot-1"></svg>
+        <svg class="chart-2" id="scatterplot-2"></svg>
+        <svg class="chart-3" id="scatterplot-3"></svg>
+        <svg class="chart-4" id="scatterplot-4"></svg>
+      </div>
     </div>
-    <br>
-  
     <br>
     <div class="treemap-holder" id="treemap">
       <h2>Treemap</h2>
       <svg id="vis-2"></svg>
     </div>
     <br>
-    <h2>Scatterplots of New England</h2>
-    <div class="chart-holder" id="sp">
-      <svg class="chart-1" id="scatterplot-1"></svg>
-      <svg class="chart-2" id="scatterplot-2"></svg>
-      <svg class="chart-3" id="scatterplot-3"></svg>
-      <svg class="chart-4" id="scatterplot-4"></svg>
-    </div>
-    
   </div>
   
   <!-- Your writeup goes here -->
@@ -106,19 +110,39 @@
 
     <h1>Data Analysis</h1>
     <p><em>Summary of data, data types, and data preprocessing.</em></p>
-
+    <p>This data is collected from an annual survey as a census for the 2021 fiscal year of state government finances. The Census Bureau derives the state financial statistics from administrative records provided to them by state governments, and merges this data with any additional financial forms the Bureau reaches out to collect.
+    The first column of data is categorical, and it describes the data found in each row (police expenditure, federal revenue, etc.). There are then 51 additional columns, 1 for each state plus the U.S. total. Each of these columns are further divided into 5 columns: state & local government, state government CV, state government, local government CV, local government. This means that each state column is divided into categorical data, with each data entry being the name of the subcolumn. Each of these subcolumns are also assigned a quantitative number ID. Then, each of these sub columns contains quantitative data.
+    Much of this data was superfluous for our research, so we created a smaller dataset focused on only police expenditure and revenue for states in the New England region. We combined this data with state population (categorical data sourced from Wikipedia), and personal income per capita (categorical data from an additional datasource).
+    </p>
+    <p>
+    The first trend we spotted was that the state government spends a significantly larger amount of funding on welfare than on policing. However, the average local government spends about twice as much on policing than welfare. This could be interpreted in one of two ways: Either there is a discrepancy between the state and local governments’ goals, or, this is reasonable because the state already spends so much on welfare that it makes sense for the local government to spend more on policing. The other trends we saw were not surprising. States with higher populations spent more on policing, and states with higher revenue spent more on policing as well. We then examined the police budget in comparison to the personal income per capita of states, and found no specific trend.
+    </p>
     <p><em>Expectation: Data sources match the problem statement and are appropriate. These descriptions should be very explicit so someone could read your page and properly reproduce your results.</em></p>
 
     <h1>Task Analysis</h1>
 
     <p><em>Summary of task table.</em></p>
 
+    <p>We had five initial tasks for our users, ranked in order of descending priority:
+      <ol>
+        <li>Compare police funding between regions - highlighting differences</li>
+        <li>Correlation between economic brackets and police budgeting</li>
+        <li>Correlation between population size and police budgeting</li>
+        <li>Do local budgets correspond to state budgets?</li>
+        <li>Change of police funding over time</li>
+      </ol>
+      At a low-level abstraction, all five of these tasks are comparison queries. Comparing police funding between regions also falls under identifying points of interest.
+      At a mid-level abstraction, tasks 2 through 5 focus on exploration, while task 1 focuses on browsing.
+      At a high-level abstraction, all of these tasks focus on discovering and deriving information.
+      Our visualization accomplishes all of these tasks except for the fifth, which we considered to be the lowest priority, since we did not want to overwhelm the user with information.
+    </p>
+
     <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
 
     <h1>Design Process</h1>
     
     <p><em>Sketches and design choices to justify final visualization.</em></p>
-
+    <p>The tasks we prioritized were to compare police funding between states, as well as identify its correlations with economic brackets and population size. We also sought to compare this on a state and local level, so as to show potential discrepancies and similarities between the two. To accomplish this, we created a map of New England states which compares police expenditure per capita through a monochrome color scale. We think this design will be quick for users to grasp and creates a strong visual representation for the user to compare which states provide more funding. Next, we have a set of linked scatter plots which show more detailed comparisons of economics, populations, and state/local revenues. Users might select a state of interest based on the map and look into it in more detail using the scatter plots, which is a strong tool for identifying trends and outliers. The user could also start with the scatter plots and move to the map. Lastly, the treemap provides additional context of which states receive the most revenue. We’ve linked our map and scatterplots so that users can compare a subset of states with all the information provided. The most significant difference from our original plans is that we previously considered focusing on change over time. However, from the data we’ve explored so far, there hasn’t been a significant change in police funding. In addition, we don’t want to give the user too much to focus on.</p>
     <p><em>Expectation: Evidence of iterative improvement.
     Logical discussion of design choices grounded in theory from course.
     Discusses feedback from usability testing.</em></p>
@@ -150,9 +174,10 @@
   <script src="lib/d3.v4/d3.v4.js"></script>
   <script src="js/visualization.js"></script>
   <script src="js/treemap.js"></script>
-  <script src="js/try_this.js"></script>
-  <!-- <script src="js/map.js"></script> -->
+  <!-- <script src="js/try_this.js"></script> -->
+  <script src="js/map.js"></script>
   <script src="js/char.js"></script>
+  
   
 </body>
 </html>
