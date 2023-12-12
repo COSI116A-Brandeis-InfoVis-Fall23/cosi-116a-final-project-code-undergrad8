@@ -54,8 +54,6 @@ circle.unselected{
 }
 
 .map-holder{
-  /* max-width: 500px;
-  max-height: 400px; */
   margin: 40px auto;
   display:block;
   max-height: 400px;
@@ -64,19 +62,12 @@ circle.unselected{
 }
 
 .vis-1 {
-	/* transform: scale(2.2)translate(0px, 100px);
-	transform-origin: center; */
-  /* max-width: 500px;
-  max-height: 400px; */
   transform: translate(-400px, -300px);
   width: 800px;
   height: 300px;
   display:inline;
 }
-/* #states {
-    transform: scale(2.2)translate(0px, 100px); /* Adjust the scale as needed */
-/*    transform-origin: center; /* This ensures scaling happens from the center of the element */
-/* } */
+
 .treemap-holder{
 	width: auto;
 	min-height: 500px;
@@ -100,15 +91,6 @@ circle.unselected{
 	color: white
 }
 
-.tooltip {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    pointer-events: none;
-  }
-
 /* Fork on GitHub ribbon via https://codepo8.github.io/css-fork-on-github-ribbon/# */  
 #forkongithub a{
 	background:#00F;
@@ -123,10 +105,12 @@ circle.unselected{
 	position:relative;
 	transition:0.5s;
 }
+
 #forkongithub a:hover{
 	background:#118;
 	color:#fff;
 }
+
 #forkongithub a::before,#forkongithub a::after{
 	content:"";
 	width:100%;
@@ -137,10 +121,12 @@ circle.unselected{
 	height:1px;
 	background:#fff;
 }
+
 #forkongithub a::after{
 	bottom:1px;
 	top:auto;
 }
+
 @media screen and (min-width:1000px){
 	#forkongithub{
 		position:fixed;

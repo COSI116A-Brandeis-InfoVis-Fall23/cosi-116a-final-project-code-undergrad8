@@ -29,10 +29,6 @@ function treemap(dispatch3, sharedState){
     .size([width, height])
     .padding(3)
     (root)
-  
-  const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
 
   svg
     .selectAll("rect")

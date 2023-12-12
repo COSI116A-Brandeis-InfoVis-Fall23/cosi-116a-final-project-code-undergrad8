@@ -14,8 +14,6 @@
       console.error('Error loading JSON data:', error);
       return;
     }
-
-    const dispatchString = "selectionUpdated";
       
     map("#map", data, mapDispatcher, scatterplotDispatcher, treemapDispatcher, sharedState);
     scatterplot(data, scatterplotDispatcher, mapDispatcher, treemapDispatcher, sharedState);

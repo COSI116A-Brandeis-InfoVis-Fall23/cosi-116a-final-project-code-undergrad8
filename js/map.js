@@ -54,7 +54,7 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
 
             colorScale = color(mergeData)   //range based on mergeData
         
-            let paths = map.selectAll("path") //create new paths SVG selection 
+            map.selectAll("path") //create new paths SVG selection 
                 .data(mergeData)
                 .enter()
                 .append("path")
@@ -182,13 +182,13 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
         }
     }
 
-    function color(this_data){
-        let Per_Capitas = this_data.map(function(d) {   //range based on whichever data is passed in
+    function color(thisData){
+        let perCapitas = thisData.map(function(d) {   //range based on whichever data is passed in
             return d.Police_per_capita;
             });
 
         let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
-            .domain([d3.min(Per_Capitas)-.015, d3.max(Per_Capitas)+.025]);
+            .domain([d3.min(perCapitas)-.015, d3.max(perCapitas)+.025]);
 
         return colorScale
     }
