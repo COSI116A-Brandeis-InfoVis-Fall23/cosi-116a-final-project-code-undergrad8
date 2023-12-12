@@ -80,9 +80,10 @@ circle.unselected{
 .treemap-holder{
 	width: auto;
 	min-height: 500px;
+	min-width: 500px;
   	display: flex;
   	flex-direction: column;
-	margin-top: 100px;
+	margin-top: 40px;
 }
 
 .vis-2 {

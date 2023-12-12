@@ -1,7 +1,7 @@
 function treemap(dispatch3, sharedState){
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
-  width = 600 - margin.left - margin.right,
-  height = 250 - margin.top - margin.bottom;
+  width = 470 - margin.left - margin.right,
+  height = 450 - margin.top - margin.bottom;
 
   // append the svg 
   d3.select("#vis-2").html("");
