@@ -1,8 +1,5 @@
 ((() => {
 
-  console.log("Hello, world!");
-  // console.log(sharedState.selectedLabels);
-
   // Immediately Invoked Function Expression to limit access to our 
   // variables and prevent 
   var sharedState={
@@ -19,15 +16,9 @@
     }
 
     const dispatchString = "selectionUpdated";
-
-    
-    // let mapData = map()
-     //map(data);
-      //.selectionDispatcher(d3.dispatch(dispatchString))
       
     map("#map", data, mapDispatcher, scatterplotDispatcher, treemapDispatcher, sharedState);
     scatterplot(data, scatterplotDispatcher, mapDispatcher, treemapDispatcher, sharedState);
-    
     treemap(treemapDispatcher, sharedState);
 
   });

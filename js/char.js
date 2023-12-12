@@ -1,8 +1,5 @@
 function scatterplot(data, dispatcher, dispatcher2, dispatcher3, sharedState){
-    console.log(dispatcher)
     dispatcher.on("selectionUpdated", function(selectedLabels) {
-        console.log("scatterplot I hear");
-        console.log(sharedState)
        updateAllVis(sharedState);
     });
         // Now 'data' contains your JSON data
@@ -12,14 +9,12 @@ function scatterplot(data, dispatcher, dispatcher2, dispatcher3, sharedState){
         const processedData_second=processData(data,'Average_income','Police_per_capita');
         drawScatterPlot(processedData_second,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-2','Average income ($)','Police per capita');
         const processedData_third=processData(data,'State_revenue','State_police');
-        console.log(processedData_third);
         drawScatterPlot(processedData_third,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-3','State Revenue ($)','State Police Protection ($)');
         const processedData_forth=processData(data,'Local_revenue','Local_police');
-        console.log(processedData_forth);
         drawScatterPlot(processedData_forth,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-4','Local Revenue ($)','Local Police Protection ($)');
     }
 
-var scatterplots = {
+let scatterplots = {
         'scatterplot-1': d3.select("#scatterplot-1"),
         'scatterplot-2': d3.select("#scatterplot-2"),
         'scatterplot-3': d3.select("#scatterplot-3"),
@@ -27,7 +22,6 @@ var scatterplots = {
 };
 
 function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState,svgId,xLabel,yLabel) {
-    console.log("drawing")
 
     // Set the dimensions and margins of the graph
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
@@ -36,7 +30,6 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     //clear the previous svg content
     d3.select("#"+svgId).html("");
     // Append the svg object to your page
-    console.log("#"+svgId)
     const svg = d3.select("#"+svgId)
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -84,7 +77,6 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     data.forEach((d, i) => {
         d.abbreviation = abbreviations[i]; // Assuming 'labels' array is available and matches your data
     });
-   console.log(labels)
 
     // Add title for x-axis
     svg.append("text")
@@ -151,15 +143,12 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
         const selection = d3.event.selection;
         if (selection) {
             const [[x0, y0], [x1, y1]] = selection;
-            // console.log(sharedState.selectedLabels);
             sharedState.selectedLabels.clear();
-            // const selectedLabels = [];
     
             svg.selectAll("circle")
                 .each(function(d) {
                    const isSelected = x0 <= x(d.x) && x(d.x) <= x1 && y0 <= y(d.y) && y(d.y) <= y1;
                    if (isSelected) {
-                       //selectedLabels.push(d.label);
                        sharedState.selectedLabels.add(d.label);
                    }
                    d3.select(this).classed("selected", isSelected);
@@ -167,11 +156,8 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
                 .filter(":not(.selected)")  // Select circles that are not part of the current selection
                 .classed("unselected", true);
             
-            console.log("Selected labels:", sharedState.selectedLabels);
-            // console.log("Selected labels:", selectedLabels.join(", "));
             updateAllVis(sharedState);
         }
-        console.log('about to send dispatch notice');
         dispatcher.call("selectionUpdated", null, sharedState.selectedLabels);
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
         dispatcher3.call("selectionUpdated", null, sharedState.selectedLabels);
@@ -180,17 +166,14 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     function brushended() {
         const selection=d3.event.selection;
         if (!selection) {
-            console.log('dots deselected');
             sharedState.selectedLabels.clear();
             svg.selectAll("circle").classed("selected", false);
-            console.log("Selected labels: ", sharedState.selectedLabels);
             dispatcher3.call("selectionUpdated", null, sharedState.selectedLabels);
         }
     }
 }
 
 function processData(data, xKey, yKey) {
-    console.log("le process")
     return data.map(item => {
         return {
             x: item[xKey],
@@ -200,7 +183,6 @@ function processData(data, xKey, yKey) {
 }
 
 function updateAllVis(sharedState){
-    console.log('Now update other scatterplots(about to implement updates on other vis)');
     Object.values(scatterplots).forEach(svg => {
         svg.selectAll("circle")
             .classed("selected", d => sharedState.selectedLabels.has(d.label));

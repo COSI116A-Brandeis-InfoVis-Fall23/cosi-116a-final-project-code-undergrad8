@@ -1,18 +1,17 @@
 function treemap(dispatch3, sharedState){
-  var margin = {top: 10, right: 10, bottom: 10, left: 10},
+  let margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 470 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
 
   // append the svg 
   d3.select("#vis-2").html("");
-  var colorScale = d3.scaleSequential(d3.interpolateBlues)
+  let colorScale = d3.scaleSequential(d3.interpolateBlues)
     .domain([-0.1,0.6]);
   const svg = d3.select("#vis-2")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",
-        // "translate(" + margin.left + "," + margin.top + ")");
         "translate(" + (width / 100) + "," + (height / 12) + ")"); // Center the <g> element
 
 
@@ -20,7 +19,7 @@ function treemap(dispatch3, sharedState){
   d3.csv('data/tree.csv', function(data) {
 
   // stratify the data: reformatting for d3.js
-  var root = d3.stratify()
+  let root = d3.stratify()
     .id(function(d) { return d.name; })   
     .parentId(function(d) { return d.parent; })   
     (data);
@@ -30,8 +29,6 @@ function treemap(dispatch3, sharedState){
     .size([width, height])
     .padding(3)
     (root)
-
-  console.log(root.leaves())
   
   const tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -46,8 +43,6 @@ function treemap(dispatch3, sharedState){
       .attr('y', function (d) { return d.y0; })
       .attr('width', function (d) { return d.x1 - d.x0; })
       .attr('height', function (d) { return d.y1 - d.y0; })
-      // .style("stroke", "black")
-      // .style("fill", "#69a4b3");
       .style("fill", function(d) {
         return colorScale(d.data.percent);
       })
@@ -80,8 +75,7 @@ function treemap(dispatch3, sharedState){
 
 function updateTreemap() {
   const selectedLabels = sharedState.selectedLabels; // Access selected labels from sharedState
-  if(selectedLabels.size===0){
-    console.log("IF ITS EMPTY");
+  if(selectedLabels.size===0){  //if it's empty
     svg.selectAll("rect")
      .style("fill", d => originalFillColor(d));
   }else{

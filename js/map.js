@@ -1,15 +1,12 @@
 function map(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState){
 
-    console.log("whats up dispatcher")
     chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState)
 
 }
 
 function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState) {
 
-    console.log(dispatcher)
     dispatcher.on("selectionUpdated", function(selectedLabels) {
-        console.log("map I hear");
         updateSelection(selectedLabels);
     });
 
@@ -20,8 +17,6 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
         .scale(1900)    //resize so it can focus in on new england
         .translate([width/500, height/2])
         .precision(.1);
-
-    console.log(selector)
 
     let map = d3.select(selector)
         .append("svg")
@@ -34,12 +29,10 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
 
     d3.json("../data/states.json", function(error, topologies) {
         let state = topojson.feature(topologies[12], topologies[12].objects.stdin); //use topologies[12] so that the geodata is from 1910, not 1790 lol
-        //console.log(state.features) //debugging
         let newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
         let newEnglandData = state.features.filter(function(state) {    //filter the states to focus the map on new england
             return newEngland.includes(state.properties.STATENAM);    //STATENAM is the property in the JSON which we need to match
             });
-        //console.log(newEnglandData) //debugging
         map.selectAll("path")
             .data(newEnglandData)   //use the newEngland states only
             .enter()
@@ -47,21 +40,9 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
             .attr("d", path)
             .attr("class", "map-element");
 
-        map.selectAll(".map-element")
-            .each(function(d, i) {
-                console.log("Element " + i + ":", d);
-            });
-
-        //     console.log("what's in here");
-        // console.log(data);
-
         d3.json("../data/official_data.json", function(error) {  //nested: join state_local data file to geo data
 
             d3.select("#map svg.vis-1").html();
-
-            console.log("and again");
-
-            console.log(data);
 
             mergeData = newEnglandData.map(function(newEnglandState) {
                 let censusState = data.find(function(localCensus) {
@@ -72,8 +53,6 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
                 });
 
             colorScale = color(mergeData)   //range based on mergeData
-
-            //console.log(mergeData)  //debugging
         
             let paths = map.selectAll("path") //create new paths SVG selection 
                 .data(mergeData)
@@ -87,7 +66,6 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
                 })
                 .append("svg:title")
                 .text(function(d) { //tooltip
-                    console.log(d.Population)   //debugging
                     return [d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Total_police];
                 });
 
@@ -131,55 +109,39 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
     })
 
     const brush = d3.brush().extent([[0,0],[width,height]])
-        // .handleSize(50)
         .on('start brush',mapbrushed)
         .on('end',mapbrushended);
-
-// svg = d3.select("#map svg.vis-1")
-
-    console.log(map)
-    console.log(selector)
 
     map.append("g") //matching console output for grant's svg
         .attr("class", "brush")
         .call(brush);
 
-    console.log("reached code");
-
     function mapbrushed() {
         let newEngland = ["Connecticut", "Rhode Island", "Massachusetts", "Vermont", "New Hampshire", "Maine"];
         const selection = d3.event.selection;
-        console.log("mapbrushed: ", selection);
         if (selection) {
             sharedState.selectedLabels.clear();
             const [[x0, y0], [x1, y1]] = selection;
-            console.log("selected");
             const selectedData = mergeData.filter(function (d) {
-                // const bounds = path.bounds(d);   //for topojson, not using because less useful
-                const [x, y] = path.centroid(d);
+                const [x, y] = path.centroid(d);    //grabs center of state: otherwise requires highlighting entire state
                 return (
                     newEngland.includes(d.properties.STATENAM) &&
                     x >= selection[0][0] && x <= selection[1][0] &&
                     y >= selection[0][1] && y <= selection[1][1]
                 );
             });
-            console.log(selectedData)
             selectedData.forEach(function(d){
                 sharedState.selectedLabels.add(d.properties.STATENAM);
             })
-            console.log("Selected labels:", sharedState.selectedLabels);
             updateSelection(sharedState.selectedLabels);
         }
-        console.log('about to send dispatch notice');
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
         dispatcher3.call("selectionUpdated", null, sharedState.selectedLabels);
     }
 
     function mapbrushended() {
         const selection = d3.event.selection;
-        console.log("brushend: ", selection);
         if (!selection) {   // needs to press away to deselect
-            console.log('Brush deselected');
             sharedState.selectedLabels.clear();
             d3.selectAll(".map-element").classed("selected", false)
             colorScale = color(mergeData)   //range based on mergeData
@@ -218,7 +180,6 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
                 return colorScale(d.Police_per_capita); //color them!
             })
         }
-        console.log(map.selectAll(".map-element.selected").data());
     }
 
     function color(this_data){
