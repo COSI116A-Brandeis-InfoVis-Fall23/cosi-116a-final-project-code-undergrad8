@@ -1,6 +1,6 @@
 function map(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState){
 
-    chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState)
+    chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState);
 
 }
 
@@ -52,7 +52,7 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
                 return Object.assign({}, newEnglandState, censusState); //assign properties of censusState to newEnglandState
                 });
 
-            colorScale = color(mergeData)   //range based on mergeData
+            colorScale = color(mergeData);   //range based on mergeData
         
             map.selectAll("path") //create new paths SVG selection 
                 .data(mergeData)
@@ -99,7 +99,7 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
             .attr("width", 250)
             .attr("height", 20)
             .style("fill", "url(#linear-gradient)")
-            .attr("transform", "translate(480, 275)")
+            .attr("transform", "translate(480, 275)");
 
             map.append("text")
                 .text("Police expenditure per capita, 2021")
@@ -132,7 +132,7 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
             });
             selectedData.forEach(function(d){
                 sharedState.selectedLabels.add(d.properties.STATENAM);
-            })
+            });
             updateSelection(sharedState.selectedLabels);
         }
         dispatcher2.call("selectionUpdated", null, sharedState.selectedLabels);
@@ -143,23 +143,23 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
         const selection = d3.event.selection;
         if (!selection) {   // needs to press away to deselect
             sharedState.selectedLabels.clear();
-            d3.selectAll(".map-element").classed("selected", false)
-            colorScale = color(mergeData)   //range based on mergeData
+            d3.selectAll(".map-element").classed("selected", false);
+            colorScale = color(mergeData);   //range based on mergeData
             map.selectAll(".map-element.unselected")
                 .style("fill", function(d) {
                 return colorScale(d.Police_per_capita); //color them!
-            })
-        }
+            });
+        };
     }
 
     function updateSelection(selectedLabels) {    //basic update selection function, will be changed to implement recoloring
-        d3.selectAll(".map-element").classed("selected", false)
+        d3.selectAll(".map-element").classed("selected", false);
         map.selectAll(".map-element").each(function(d){
             if(sharedState.selectedLabels.has(d.STATENAM)){
-                d3.select(this).classed("selected", true)
+                d3.select(this).classed("selected", true);
             }else{
-                d3.select(this).classed("unselected", true)
-            }
+                d3.select(this).classed("unselected", true);
+            };
         });
         let selectedData = mergeData.filter(function (d) {
             return sharedState.selectedLabels.has(d.properties.STATENAM);
@@ -170,16 +170,16 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
             map.selectAll(".map-element.unselected")
                 .style("fill", function(d) {
                     return colorScale(d.Police_per_capita); //color them with the original color scale
-                })
+                });
         } else{
-        colorScale = color(selectedData)    //range based on selectedData
+        colorScale = color(selectedData);    //range based on selectedData
         map.selectAll(".map-element.unselected")
             .style("fill", "gray");
         map.selectAll(".map-element.selected")
             .style("fill", function(d) {
                 return colorScale(d.Police_per_capita); //color them!
-            })
-        }
+            });
+        };
     }
 
     function color(thisData){
@@ -190,8 +190,8 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
         let colorScale = d3.scaleSequential(d3.interpolateBlues)    //set up your color scale
             .domain([d3.min(perCapitas)-.015, d3.max(perCapitas)+.025]);
 
-        return colorScale
-    }
+        return colorScale;
+    };
 
     return chart;
 
