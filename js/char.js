@@ -8,15 +8,15 @@ function scatterplot(data, dispatcher, dispatcher2, dispatcher3, sharedState){
         // Now 'data' contains your JSON data
         
         const processedData=processData(data,'Population','State_police');
-        drawScatterPlot(processedData, dispatcher, dispatcher2, dispatcher3, sharedState,'scatterplot-1','Population','State Police Protection'); // Call a function to draw the scatter plot
+        drawScatterPlot(processedData, dispatcher, dispatcher2, dispatcher3, sharedState,'scatterplot-1','Population','State Police Protection ($)'); // Call a function to draw the scatter plot
         const processedData_second=processData(data,'Average_income','Police_per_capita');
-        drawScatterPlot(processedData_second,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-2','Average income','Police per capita');
+        drawScatterPlot(processedData_second,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-2','Average income ($)','Police per capita');
         const processedData_third=processData(data,'State_revenue','State_police');
         console.log(processedData_third);
-        drawScatterPlot(processedData_third,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-3','State Revenue','State Police Protection');
+        drawScatterPlot(processedData_third,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-3','State Revenue ($)','State Police Protection ($)');
         const processedData_forth=processData(data,'Local_revenue','Local_police');
         console.log(processedData_forth);
-        drawScatterPlot(processedData_forth,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-4','Local Revenue','Local Police Protection');
+        drawScatterPlot(processedData_forth,dispatcher, dispatcher2, dispatcher3, sharedState, 'scatterplot-4','Local Revenue ($)','Local Police Protection ($)');
     }
 
 var scatterplots = {
