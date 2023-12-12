@@ -100,12 +100,6 @@
         a <a href="https://drive.google.com/file/d/196p_n7w9o5p7xxm_RgsX73P6zdhvh0cX/view?usp=drive_link">link to the video</a> instead.</p>
     </video>
     <p><em>Embedded MP4 demo video using the HTML5 &lt;video&gt; tag. For example, this screen recording Prof. Cody Dunne made of Mike Bostock's flexible transitions in D3 slide:</em></p>
-    
-    <video controls width="100%">
-      <source src="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4" type="video/mp4">
-      <p>Your browser doesn't support HTML5 video. Here is
-       a <a href="http://www.ccs.neu.edu/home/cody/courses/shared/d3-flexible-transitions.mp4">link to the video</a> instead.</p>
-    </video>
 
     <h1>Visualization explanation</h1>
     <p>Our goal was to create three visualizations for our users. Since our data is focused on New England, our immediate thought was to create a map—maps are great for comparing the different states, and they’re also a fun, recognizable visualization for users to interact with. We wanted a monochromatic color scheme, since the data is sequential. Since we want to analyze trends and outliers, we then decided that we should create a scatterplot. It’s a simple-to-read visualization that emphasizes many of the comparisons we’re looking to make (position is a strongly identifiable channel). There’s no chart junk and it’s a direct representation of the data. But since we have multiple components to analyze, we determined that it would be best to create four linked scatterplots. This has the benefit of not overwhelming the user with a complicated number of encodings, and also creating an honest representation of the data with axes that minimize the lie factor. By adding brushing and linking, we can make it so that the states a user selects stand out on the neighboring charts. Lastly, we chose to create a treemap. We wanted to create context for our visualizations, and give the user a broader understanding of how much revenue these states are receiving. While the scatterplots show the local and state revenues, we thought it was important to show the total police expenditure per total revenue. We also thought this was an integral enough piece of information that it warranted its own new visualization. A treemap uses area to proportionately encode which states are spending the most on police given their individual revenue. We used the same monochromatic color scheme so that the comparisons would be consistent across the board.</p>
