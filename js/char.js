@@ -74,8 +74,7 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
         .append("circle")
         .attr("cx", d => x(d.x))
         .attr("cy", d => y(d.y))
-        .attr("r", 2.5)
-        .style("fill", 'green');
+        .attr("r", 2.5);
     // Array of labels corresponding to the first six data points
     const labels = ['Connecticut', 'Maine', 'Massachusetts', 'New Hampshire', 'Rhode Island', 'Vermont'];
     const abbreviations = ['CT', 'ME', 'MA', 'NH', 'RI', 'VT'];
@@ -87,22 +86,22 @@ function drawScatterPlot(data, dispatcher, dispatcher2, dispatcher3, sharedState
     });
    console.log(labels)
 
-   // Add title for x-axis
-svg.append("text")
-    .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 30) + ")")
-    .style("text-anchor", "middle")
-    .style("font-size", "13px")
-    .text(xLabel);
+    // Add title for x-axis
+    svg.append("text")
+        .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 30) + ")")
+        .style("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text(xLabel);
 
-// Add title for y-axis
-svg.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left - 3.5)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .style("font-size", "13px")
-    .text(yLabel);
+    // Add title for y-axis
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left - 3.5)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .style("font-size", "13px")
+        .text(yLabel);
 
 
     //add dots
@@ -157,14 +156,16 @@ svg.append("text")
             // const selectedLabels = [];
     
             svg.selectAll("circle")
-               .each(function(d) {
+                .each(function(d) {
                    const isSelected = x0 <= x(d.x) && x(d.x) <= x1 && y0 <= y(d.y) && y(d.y) <= y1;
                    if (isSelected) {
                        //selectedLabels.push(d.label);
                        sharedState.selectedLabels.add(d.label);
                    }
                    d3.select(this).classed("selected", isSelected);
-               });
+                })
+                .filter(":not(.selected)")  // Select circles that are not part of the current selection
+                .classed("unselected", true);
             
             console.log("Selected labels:", sharedState.selectedLabels);
             // console.log("Selected labels:", selectedLabels.join(", "));
@@ -206,6 +207,4 @@ function updateAllVis(sharedState){
     });
     //update other graphs
 
-
-    
 }

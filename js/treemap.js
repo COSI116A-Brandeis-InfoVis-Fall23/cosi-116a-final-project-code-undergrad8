@@ -1,23 +1,23 @@
 function treemap(dispatch3, sharedState){
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
-  width = 850 - margin.left - margin.right,
-  height = 450 - margin.top - margin.bottom;
+  width = 600 - margin.left - margin.right,
+  height = 250 - margin.top - margin.bottom;
 
-// append the svg 
-d3.select("#vis-2").html("");
-var colorScale = d3.scaleSequential(d3.interpolateBlues)
-  .domain([-0.1,0.6]);
-const svg = d3.select("#vis-2")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform",
-      // "translate(" + margin.left + "," + margin.top + ")");
-      "translate(" + (width / 4) + "," + (height / 4) + ")"); // Center the <g> element
+  // append the svg 
+  d3.select("#vis-2").html("");
+  var colorScale = d3.scaleSequential(d3.interpolateBlues)
+    .domain([-0.1,0.6]);
+  const svg = d3.select("#vis-2")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+        // "translate(" + margin.left + "," + margin.top + ")");
+        "translate(" + (width / 100) + "," + (height / 12) + ")"); // Center the <g> element
 
 
-// Read data
-d3.csv('data/tree.csv', function(data) {
+  // Read data
+  d3.csv('data/tree.csv', function(data) {
 
   // stratify the data: reformatting for d3.js
   var root = d3.stratify()
@@ -31,9 +31,8 @@ d3.csv('data/tree.csv', function(data) {
     .padding(3)
     (root)
 
-
-
-console.log(root.leaves())
+  console.log(root.leaves())
+  
   svg
     .selectAll("rect")
     .data(root.leaves())
@@ -72,6 +71,7 @@ console.log(root.leaves())
     .attr("font-size", "13px")
     .attr("fill", "white");
 })
+
 function updateTreemap() {
   const selectedLabels = sharedState.selectedLabels; // Access selected labels from sharedState
   if(selectedLabels.size===0){
@@ -83,12 +83,13 @@ function updateTreemap() {
      .style("fill", d => selectedLabels.has(d.data.name) ? originalFillColor(d) : "gray");
   }
 }
+
 function originalFillColor(d){
   return colorScale(d.data.percent);
 }
+
 dispatch3.on("selectionUpdated.treemap", function(selectedLabels) {
   updateTreemap();
 });
-
 
 }
