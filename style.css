@@ -60,7 +60,7 @@ circle.unselected{
   display:block;
   max-height: 400px;
   max-width: 600px;
-  transform: translate(-100px,0px);
+  transform: translate(0px,0px);
 }
 
 .vis-1 {
