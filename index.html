@@ -65,7 +65,7 @@
     <div class="vis-container">
       <div class="map-holder" id="map">
         <h3>2021 New England, Police Expenditure per capita</h3>
-        <svg class="vis-1"  viewBox = "0 0 1200 500">
+        <svg class="vis-1"  viewBox = "0 0 1200 500" id="vis-1">
           <g id="states" ></g>
         </svg>
       </div>
@@ -128,12 +128,16 @@
         <li>Correlation between economic brackets and police budgeting</li>
         <li>Correlation between population size and police budgeting</li>
         <li>Do local budgets correspond to state budgets?</li>
-        <li>Change of police funding over time</li>
+        <li>Change of police funding over time - is funding increasing/decreasing similarly across the nation, with points of interest such as the ‘80s and the recent Defund the Police Movement?</li>
       </ol>
       At a low-level abstraction, all five of these tasks are comparison queries. Comparing police funding between regions also falls under identifying points of interest.
       At a mid-level abstraction, tasks 2 through 5 focus on exploration, while task 1 focuses on browsing.
       At a high-level abstraction, all of these tasks focus on discovering and deriving information.
       Our visualization accomplishes all of these tasks except for the fifth, which we considered to be the lowest priority, since we did not want to overwhelm the user with information.
+      We also found in our Data Analysis section that local budgets in proportion to state budgets was exactly what you’d anticipate, so that is lower in our priority as well.
+    </p>
+    <p>
+      Overall, our main goal is to create visualizations which are good at comparing categorical data, and to place an emphasis on the regional (state-based) aspect of this data. We want the visualizations to be easy for users to comprehend, and we want to give users the ability to discover the data themselves through interacting with the multiple components.
     </p>
 
     <p><em>Expectation: Clearly describes domain tasks, processes, goals and abstract tasks for domain problems.</em></p>
@@ -151,14 +155,14 @@
 
     <p><em>Short summary of work completed and areas for improvement/future-work.</em></p>
     
-    <p>We have successfully implemented brushing and linking between all of our scatterplots and the map. We have also implemented brushing and linking from the scatterplots and map to the treemap. We have a consistent blue color encoding across visualizations (which also matches the theme of policing). We have tooltips for the map and treemap so that the user can view more details on demand. We have created a meaningful display of data to help users explore police budgeting in the New England region, with an emphasis on population, revenue, and average household income.</p>
+    <p>We have successfully implemented brushing and linking between all of our scatterplots and the map. We have also implemented brushing and linking from the scatterplots and map to the treemap. We have a consistent blue color encoding across visualizations (which also matches the topic of policing!). We have tooltips for the map and treemap so that the user can view more details on demand to discover the exact values represented by these visualizations. We have created a meaningful display of data to help users explore police budgeting in the New England region, with an emphasis on population, revenue, and average household income. This effectively responds to tasks one through four from our task table. We think this visualization is not overly complex and is well suited for the average taxpayer who wants to learn about their state’s budget.</p>
 
     <p>In the future, some things we would like to do are:
       <ul>
         <li>Make the color legends update with brushing and linking, as opposed to a set scale</li>
         <li>Enable additional brushing and linking from the treemap</li>
         <li>Allow you to reload your webpage with a region you choose!</li>
-        <li>Allow users to select the year they'd like to examine</li>
+        <li>Allow users to select the year they'd like to examine, or perhaps move through time on a scale so that they can see the change over time</li>
       </ul>
     </p>
 
