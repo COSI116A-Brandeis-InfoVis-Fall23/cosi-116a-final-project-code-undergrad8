@@ -88,7 +88,7 @@ function chart(selector, data, dispatcher, dispatcher2, dispatcher3, sharedState
                 .append("svg:title")
                 .text(function(d) { //tooltip
                     console.log(d.Population)   //debugging
-                    return ["State: " + d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Total_police];
+                    return [d.properties.STATENAM + "\nPopulation: " + d.Population + "\nPolice per capita: " +d.Police_per_capita + "\nTotal police expenditure: " + d.Total_police];
                 });
 
         })

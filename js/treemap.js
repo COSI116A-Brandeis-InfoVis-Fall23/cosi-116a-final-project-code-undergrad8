@@ -33,6 +33,10 @@ function treemap(dispatch3, sharedState){
 
   console.log(root.leaves())
   
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
   svg
     .selectAll("rect")
     .data(root.leaves())
@@ -46,7 +50,9 @@ function treemap(dispatch3, sharedState){
       // .style("fill", "#69a4b3");
       .style("fill", function(d) {
         return colorScale(d.data.percent);
-     });
+      })
+      .append("title") // tooltip
+      .text(d => `${d.data.name}\nTotal police expenditure: ${d.value}`);
 
   // and to add the text labels
   svg
